@@ -1,0 +1,7 @@
+.settings/
+build.properties
+build.xml
+default.properties
+local.properties
+bin/
+gen/
