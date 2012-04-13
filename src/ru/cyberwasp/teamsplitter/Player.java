@@ -2,9 +2,18 @@ package ru.cyberwasp.teamsplitter;
 
 public class Player {
 
-	public int getMetrix() {
-		// TODO Auto-generated method stub
-		return 0;
+	private final double metric;
+
+	public Player(){
+		this(0);
+	}
+	
+	public Player(double metric) {
+		this.metric = metric;
+	}
+
+	public double getMetric() {
+		return metric;
 	}
 
 }

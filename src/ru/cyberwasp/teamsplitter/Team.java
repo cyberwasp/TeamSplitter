@@ -1,76 +1,98 @@
 package ru.cyberwasp.teamsplitter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Team {
 	
-	private List<Player> players = new ArrayList<Player>();
+	private List<Player> players = new ArrayList<Player>(); 
 
-	public Team(List<Player> players, int[] playersInTeams, int j) {
+	public Team(Player players[]) {
+		if (players != null)
+			this.players.addAll(Arrays.asList(players));
+	}
+	
+	public Team(Player players[], int[] playersInTeams, int teamIndex) {
 		for (int i = 0; i < playersInTeams.length; i++) {
-			if (playersInTeams[i] == j)
-				Add(players.get(i));
+			if (playersInTeams[i] == teamIndex)
+				Add(players[i]);
 		}
 	}
 
-	private void Add(Player player) {
+	public void Add(Player player) {
 		this.players.add(player);
 	}
 
-	private static Double calcMediane(int[] data){
-		Double res = 0.0;
+	public static double calcMediane(int[] data){
+		double res = 0.0;
 		for (int i = 0; i < data.length; i++) {
 			res += data[i];
 		}
 		return res / data.length;
 	}
 	
-	private static Double calcStandartDeviation(int[] data){
-		Double res = 0.0;
-		Double mediane = calcMediane(data);
+	public static double calcSquareOfStandartDeviation(int[] data){
+		double res = 0.0;
+		double mediane = calcMediane(data);
 		for (int i = 0; i < data.length; i++) {
 			res += Math.pow(data[i] - mediane, 2);
 		}
 		return res / data.length;
 	}
 	
-	private static int[] calcMetrix(List<Player> players, int[] playersInTeams, int teamCount){
+	public static int[] calcMetric(Player players[], int[] playersInTeams, int teamCount){
 		int[] res = new int[teamCount];
-		for (int i = 0; i < players.size(); i++) {
-			res[playersInTeams[i]] += players.get(i).getMetrix();
+		for (int i = 0; i < players.length; i++) {
+			res[playersInTeams[i]] += players[i].getMetric();
 		}
 		return res;
 	}
 	
-	public static List<Team> split(List<Player> players, int teamCount)
+	public static Team[] split(Player players[], int teamCount)
 	{
-		List<Team> res = new ArrayList<Team>();
+		Team res[] = new Team[teamCount];
 		
-		int playersInTeams[] = new int[players.size()];
+		int playersInTeams[] = new int[players.length];
 		
-		Double minDeviation = Double.MAX_VALUE;  
+		double minDeviation = Double.MAX_VALUE;  
 		
-		for (int i = 0; i < (int)Math.pow(teamCount, players.size()); i++){
+		for (int i = 0; i < (int)Math.pow(teamCount, players.length); i++){
+			
 			int state = i;
+			
 			int counter = 0;
-			while (state >= 0){
+			
+			while (state > 0) {
 				playersInTeams[counter] = state % teamCount;
 				state = state / teamCount;
 				counter += 1;
-			}
+			} 
 			
-			int[] metrixes = calcMetrix(players, playersInTeams, teamCount);
+			while (counter < playersInTeams.length){
+				playersInTeams[counter] = 0;
+				counter += 1;
+			} 
 			
-			Double deviation = calcStandartDeviation(metrixes);
+			int[] metrics = calcMetric(players, playersInTeams, teamCount);
+			
+			double deviation = calcSquareOfStandartDeviation(metrics);
 			
 			if (deviation < minDeviation){
-				res.clear();
 				for (int j = 0; j < teamCount ; j++) {
-					res.add(new Team(players, playersInTeams, j));
+					res[j] = new Team(players, playersInTeams, j);
 				}
+				minDeviation = deviation;
 			}
 		}
 		return res;
+	}
+
+	public boolean hasPlayer(Player player) {
+		return players.contains(player);
+	}
+
+	public int size() {
+		return players.size();
 	}
 }
