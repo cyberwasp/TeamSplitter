@@ -87,6 +87,10 @@ public class Team {
 		}
 		return res;
 	}
+	
+	public Player[] getPlayers(){
+		return (Player[]) players.toArray(new Player[0]);		
+	}
 
 	public boolean hasPlayer(Player player) {
 		return players.contains(player);

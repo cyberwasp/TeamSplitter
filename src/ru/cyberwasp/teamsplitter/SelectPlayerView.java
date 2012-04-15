@@ -5,12 +5,15 @@ import android.widget.CheckBox;
 
 public class SelectPlayerView extends CheckBox{
 
-	private final Player player;
+	private Player player = null;
 
-	public SelectPlayerView(Context context, Player player) {
+	public SelectPlayerView(Context context) {
 		super(context);
+		setChecked(true);
+	}
+	
+	public void setPlayer(Player player){
 		this.player = player;
-		setChecked(false);
 		setText(player.getName());
 	}
 

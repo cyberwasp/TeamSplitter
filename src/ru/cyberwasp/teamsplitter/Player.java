@@ -5,13 +5,14 @@ public class Player {
 	private static int gen = 0;
 	private final double metric;
 	private String name;
+	private int id;
 
 	public Player(){
 		this(0);
 	}
 	
 	public Player(double metric) {
-		this(genName(), metric);
+		this(gen+1, genName(), metric);
 	}
 
 	private static String genName() {
@@ -19,7 +20,8 @@ public class Player {
 		return "Name" + gen;
 	}
 
-	public Player(String name, double metric) {
+	public Player(int id, String name, double metric) {
+		this.id = id;
 		this.metric = metric;
 		this.name = name;
 	}
@@ -32,4 +34,7 @@ public class Player {
 		return name;
 	}
 
+	public int getId() {
+		return id;
+	}
 }

@@ -56,8 +56,8 @@ public class PlayersDataBase {
 		
 	}
 	
-	public Cursor getPlayers(){
-    	String sql = "select * from " + PlayersDataBase.PlayersTable.NAME;
+	public Cursor getPlayers(String condition){
+    	String sql = "select * from " + PlayersDataBase.PlayersTable.NAME + " " + condition;
     	return database.rawQuery(sql, null);
 	}
 	

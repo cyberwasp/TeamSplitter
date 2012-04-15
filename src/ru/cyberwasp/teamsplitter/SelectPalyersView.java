@@ -13,7 +13,8 @@ public class SelectPalyersView extends LinearLayout {
 
 	private TextView caption;
 	private GridView grid;
-	private Button button;	
+	private Button button;
+	private Spinner numOfTeams;
 
 	public SelectPalyersView(Context context) {
 		super(context);
@@ -37,7 +38,7 @@ public class SelectPalyersView extends LinearLayout {
 		numOfTeamsCaption.setText("Number of teams:");
 		bottom.addView(numOfTeamsCaption);
 
-		Spinner numOfTeams = new Spinner(context);
+		numOfTeams = new Spinner(context);
 		String nums[] = {"2", "3", "4", "5"};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, nums);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -52,7 +53,24 @@ public class SelectPalyersView extends LinearLayout {
 	}
 
 	public void setPlayers(Player[] players) {
-		PlayersAdapter adapter =  new PlayersAdapter(getContext(), players);
+		BasePlayersAdapter adapter =  new SelectPlayersAdapter(getContext(), players);
 		grid.setAdapter(adapter);
 	}
+
+	public Button getSplitButton() {
+		return button;
+	}
+
+	public Spinner getNumOfTeams() {
+		return numOfTeams;
+	}
+
+	public void setNumOfTeams(Spinner numOfTeams) {
+		this.numOfTeams = numOfTeams;
+	}
+
+	public GridView getGrid() {
+		return grid;
+	}
+
 }
