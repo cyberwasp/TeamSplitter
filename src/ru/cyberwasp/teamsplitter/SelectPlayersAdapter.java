@@ -20,7 +20,6 @@ public class SelectPlayersAdapter extends BasePlayersAdapter {
 			view = (SelectPlayerView) convertView;
 		}
 		view.setPlayer(getPlayers()[position]);
-		view.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.FILL_PARENT, GridView.LayoutParams.WRAP_CONTENT));
 		return view;
 	}
 

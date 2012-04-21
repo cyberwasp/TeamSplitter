@@ -21,7 +21,6 @@ public class ResultPlayersAdapter extends BasePlayersAdapter {
 			view = (ResultPlayerView) convertView;
 		}
 		view.setPlayer(getPlayers()[position]);
-		view.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.FILL_PARENT, GridView.LayoutParams.WRAP_CONTENT));
 		return view;
 	}
 
