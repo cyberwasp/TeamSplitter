@@ -45,7 +45,7 @@ public class TeamSplitterResultView extends LinearLayout {
 		
 		for (int i = 0; i < teams.length; i++) {
 			captions[i] = new TextView(getContext());
-			captions[i].setText("Command №" + i);
+			captions[i].setText(teams[i].getInfo());
 			captions[i].setTextColor(Color.BLACK);
 			captions[i].setBackgroundColor(Color.GREEN);
 			grids[i] = new GridView(getContext());

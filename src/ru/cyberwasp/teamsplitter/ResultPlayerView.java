@@ -13,7 +13,7 @@ public class ResultPlayerView extends TextView {
 
 	public void setPlayer(Player player) {
 		this.player = player;
-		setText(player.getName());
+		setText(player.getInfo());
 	}
 	
 	public Player getPlayer(){

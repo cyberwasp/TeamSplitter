@@ -1,5 +1,7 @@
 package ru.cyberwasp.teamsplitter;
 
+import java.text.DecimalFormat;
+
 import android.content.Context;
 import android.widget.CheckBox;
 
@@ -14,7 +16,7 @@ public class SelectPlayerView extends CheckBox{
 	
 	public void setPlayer(Player player){
 		this.player = player;
-		setText(player.getName());
+		setText(player.getInfo());
 	}
 
 	public Player getPlayer() {

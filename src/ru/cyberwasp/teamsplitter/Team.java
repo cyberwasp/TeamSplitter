@@ -1,19 +1,23 @@
 package ru.cyberwasp.teamsplitter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Team {
 	
-	private List<Player> players = new ArrayList<Player>(); 
+	private List<Player> players = new ArrayList<Player>();
+	private int num;
 
-	public Team(Player players[]) {
+	public Team(Player players[], int num) {
+		this.num = num;
 		if (players != null)
 			this.players.addAll(Arrays.asList(players));
 	}
 	
-	public Team(Player players[], int[] playersInTeams, int teamIndex) {
+	public Team(int num, Player players[], int[] playersInTeams, int teamIndex) {
+		this.num = num;
 		for (int i = 0; i < playersInTeams.length; i++) {
 			if (playersInTeams[i] == teamIndex)
 				Add(players[i]);
@@ -80,7 +84,7 @@ public class Team {
 			
 			if (deviation < minDeviation){
 				for (int j = 0; j < teamCount ; j++) {
-					res[j] = new Team(players, playersInTeams, j);
+					res[j] = new Team(j, players, playersInTeams, j);
 				}
 				minDeviation = deviation;
 			}
@@ -98,5 +102,19 @@ public class Team {
 
 	public int size() {
 		return players.size();
+	}
+	
+	public int getMetric(){
+		int res = 0;
+		for (int i = 0; i < players.size(); i++) {
+			res += players.get(i).getMetric();
+		}
+		return res;
+	}
+	
+	public String getInfo(){
+		DecimalFormat fmt = new DecimalFormat("#.##");
+		String metric = fmt.format(getMetric());
+		return "Team N " + num + " (metric = " + metric + ")";
 	}
 }

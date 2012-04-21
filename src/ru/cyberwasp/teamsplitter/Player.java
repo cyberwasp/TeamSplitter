@@ -1,5 +1,7 @@
 package ru.cyberwasp.teamsplitter;
 
+import java.text.DecimalFormat;
+
 public class Player {
 	
 	private static int gen = 0;
@@ -37,4 +39,12 @@ public class Player {
 	public int getId() {
 		return id;
 	}
+	
+	public String getInfo(){
+		DecimalFormat fmt = new DecimalFormat("#.##");
+		String metric = fmt.format(getMetric());
+		return " " + getName() + " (metric = " + metric + ")";
+	}
+	
+	
 }
