@@ -5,8 +5,9 @@ import android.os.Bundle;
 
 public class TeamSplitterResultActivity extends Activity {
     
-	public static String PARAM_NAME_TEAM_COUNT = "TeamCount";
-	public static String PARAM_NAME_SELECTED_IDS = "SelectedIDs";
+	public static final String PARAM_NAME_MAX_DIFF_OF_COUNT = "MaxDiffOfCount";
+	public static final String PARAM_NAME_TEAM_COUNT = "TeamCount";
+	public static final String PARAM_NAME_SELECTED_IDS = "SelectedIDs";
 	
 	private TeamSplitterResultView view;
 
@@ -22,7 +23,8 @@ public class TeamSplitterResultActivity extends Activity {
 	private Team[] splitSelectedPlayers() {
 		Player[] players = getSelectedPlayers();
 		int teamCount = getTeamCount();
-		return Team.split(players, teamCount);
+		int maxDiffOfCount = getMaxDiffOfCount();		
+		return Team.split(players, teamCount, maxDiffOfCount);
 	}
 	
 	private int getTeamCount() {
@@ -30,6 +32,11 @@ public class TeamSplitterResultActivity extends Activity {
 		return extras.getInt(PARAM_NAME_TEAM_COUNT);
 	}
 
+	private int getMaxDiffOfCount() {
+		Bundle extras = getIntent().getExtras();
+		return extras.getInt(PARAM_NAME_MAX_DIFF_OF_COUNT);
+	}
+	
 	private Player[] getSelectedPlayers() {
 		Bundle extras = getIntent().getExtras();
 		int ids[] = extras.getIntArray(PARAM_NAME_SELECTED_IDS);

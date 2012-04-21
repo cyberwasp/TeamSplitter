@@ -53,13 +53,15 @@ public class Team {
 		return res;
 	}
 	
-	public static Team[] split(Player players[], int teamCount)
+	public static Team[] split(Player players[], int teamCount, int maxDiffPlayerCount)
 	{
 		Team res[] = new Team[teamCount];
 		
 		int playersInTeams[] = new int[players.length];
 		
-		double minDeviation = Double.MAX_VALUE;  
+		double minDeviation = Double.MAX_VALUE;
+		
+		int cntInTeam[] = new int[teamCount];
 		
 		for (int i = 0; i < (int)Math.pow(teamCount, players.length); i++){
 			
@@ -67,8 +69,11 @@ public class Team {
 			
 			int counter = 0;
 			
+			Arrays.fill(cntInTeam, 0);
+			
 			while (state > 0) {
 				playersInTeams[counter] = state % teamCount;
+				cntInTeam[state % teamCount] += 1;
 				state = state / teamCount;
 				counter += 1;
 			} 
@@ -76,7 +81,13 @@ public class Team {
 			while (counter < playersInTeams.length){
 				playersInTeams[counter] = 0;
 				counter += 1;
+				cntInTeam[0] += 1;
 			} 
+			
+			Arrays.sort(cntInTeam);
+			
+			if ((cntInTeam[cntInTeam.length - 1] - cntInTeam[0]) > maxDiffPlayerCount) 
+				continue;
 			
 			int[] metrics = calcMetric(players, playersInTeams, teamCount);
 			
@@ -115,6 +126,6 @@ public class Team {
 	public String getInfo(){
 		DecimalFormat fmt = new DecimalFormat("#.##");
 		String metric = fmt.format(getMetric());
-		return "Team N " + num + " (metric = " + metric + ")";
+		return "Team " + num + " (metric = " + metric + ")";
 	}
 }

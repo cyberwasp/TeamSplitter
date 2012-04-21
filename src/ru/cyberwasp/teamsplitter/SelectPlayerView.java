@@ -1,7 +1,5 @@
 package ru.cyberwasp.teamsplitter;
 
-import java.text.DecimalFormat;
-
 import android.content.Context;
 import android.widget.CheckBox;
 

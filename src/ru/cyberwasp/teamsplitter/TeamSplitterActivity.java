@@ -26,6 +26,7 @@ public class TeamSplitterActivity extends Activity {
     	public void onClick(View v){
         	Intent intent = new Intent(context, cls);
         	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_TEAM_COUNT, context.getTeamCount());
+        	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_MAX_DIFF_OF_COUNT, context.getMaxDiffOfCounts());
         	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_SELECTED_IDS, context.getSelectedIds());
         	startActivity(intent);
     	}
@@ -41,6 +42,11 @@ public class TeamSplitterActivity extends Activity {
 		OnClickListener l = new IntentOnClickListener(this, TeamSplitterResultActivity.class);
 		view.getSplitButton().setOnClickListener(l);
     }
+
+	public Integer getMaxDiffOfCounts() {
+		TextView textView = (TextView)view.getMaxDiffOfCount().getSelectedView();
+		return new Integer(textView.getText().toString());
+	}
 
 	public int[] getSelectedIds() {
 		SelectPlayersAdapter adapter = (SelectPlayersAdapter) view.getGrid().getAdapter();
