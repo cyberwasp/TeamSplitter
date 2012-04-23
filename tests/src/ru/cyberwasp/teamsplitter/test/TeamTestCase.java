@@ -1,5 +1,7 @@
 package ru.cyberwasp.teamsplitter.test;
 
+import java.util.List;
+
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.Team;
 
@@ -59,6 +61,33 @@ public class TeamTestCase extends TestCase {
 		
 		assertEquals(21, metrics[0]);
 		assertEquals(12, metrics[1]);
+	}
+	
+	
+	public void testGenCombnations()
+	{
+		List<int[]> res = Team.genCombnations(4, 2);
+
+		assertEquals(res.get(0)[0], 1);
+		assertEquals(res.get(0)[1], 2);
+		
+		assertEquals(res.get(1)[0], 1);
+		assertEquals(res.get(1)[1], 3);
+		
+		assertEquals(res.get(2)[0], 1);
+		assertEquals(res.get(2)[1], 4);
+		
+		assertEquals(res.get(3)[0], 2);
+		assertEquals(res.get(3)[1], 3);
+		
+		assertEquals(res.get(4)[0], 2);
+		assertEquals(res.get(4)[1], 4);
+		
+		assertEquals(res.get(5)[0], 3);
+		assertEquals(res.get(5)[1], 4);
+		
+		res = Team.genCombnations(15, 5);
+		assertEquals(res.size(), 3003);
 	}
 
 	public void testSplit() {

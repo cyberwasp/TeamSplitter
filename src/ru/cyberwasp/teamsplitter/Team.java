@@ -3,6 +3,9 @@ package ru.cyberwasp.teamsplitter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Team {
@@ -103,7 +106,54 @@ public class Team {
 		return res;
 	}
 	
+	public static Team[] split2(Player players[], int teamCount, int maxDiffPlayerCount){
+		List<int[]> combinations = new ArrayList<int[]>();
+		int avaragePlayerInTeam = players.length / teamCount; 
+		for (int i = avaragePlayerInTeam - maxDiffPlayerCount; i <= avaragePlayerInTeam + maxDiffPlayerCount;
+				i++)
+		{
+			combinations.addAll(genCombnations(players.length, i));
+		}
+		Collections.sort(combinations, new PlayerComparator(players));
+	}
 	
+
+	private static int[] genRange(int i, int j) {
+		int res[] = new int[j - i + 1];
+		for (int k = 0; k < res.length; k++) {
+			res[k] = i + k;
+		}
+	    return res;
+	}
+
+	public static List<int[]> genCombnations(int m, int n) {
+		List<int[]> res = new ArrayList<int[]>();  
+	    int a[] = genRange(1, m);
+	    if (m == n) {
+	    	res.add(a);
+	    	return res;
+	    }      
+	    else{
+	    	int p = n;
+	    	while (p >= 1){
+	    		res.add(Arrays.copyOf(a, n));
+	    	    if (a[n-1] == m){
+	    	    	p -= 1;
+	    	    }
+	    	    else{
+	    	        p = n;
+	    	    }
+	    	    if (p >=1){
+	    	    	for (int i = n; i >= p; i--) {
+	    	    		a[i-1] = a[p-1] + i - p + 1;
+	    	    	}
+	    	    }
+	    	}
+	    }
+		return res;
+	}
+
+
 	public Player[] getPlayers(){
 		return (Player[]) players.toArray(new Player[0]);		
 	}
