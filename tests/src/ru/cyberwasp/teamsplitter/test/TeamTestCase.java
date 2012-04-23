@@ -17,20 +17,20 @@ public class TeamTestCase extends TestCase {
 
 		Team team;
 		
-		team = new Team(players);
+		team = new Team(1, players);
 		assertTrue(team.hasPlayer(p2));
 		assertTrue(team.hasPlayer(p3));
 		assertTrue(team.hasPlayer(p1));
 		
 		int playerInTeams[] = {0, 1, 1};
-		team = new Team(players, playerInTeams, 1);
+		team = new Team(1, players, playerInTeams, 1);
 		assertTrue(team.hasPlayer(p2));
 		assertTrue(team.hasPlayer(p3));
 		assertFalse(team.hasPlayer(p1));
 	}
 
 	public void testAdd() {
-		Team team = new Team(null);
+		Team team = new Team(1, null);
 		Player player = new Player();
 		team.Add(player);
 		assertTrue(team.hasPlayer(player));
@@ -66,7 +66,7 @@ public class TeamTestCase extends TestCase {
 		Player p2 = new Player(11);
 		Player p3 = new Player(12);
 		Player players[] = {p1, p2, p3};
-		Team teams[] = Team.split(players, 2);
+		Team teams[] = Team.split(players, 2, 1);
 		//player1 and player2 in same team
 		assertFalse(teams[1].hasPlayer(p1) ^ teams[1].hasPlayer(p2));
 		assertFalse(teams[0].hasPlayer(p1) ^ teams[0].hasPlayer(p2));
@@ -77,19 +77,19 @@ public class TeamTestCase extends TestCase {
 		Player players2[] = {
 				new Player(1), new Player(1), new Player(1), new Player(1), new Player(1),
 				new Player(1), new Player(1), new Player(1), new Player(1), new Player(1)};
-		Team teams2[] = Team.split(players2, 2);
+		Team teams2[] = Team.split(players2, 2, 1);
 		assertEquals(5, teams2[0].size());
 		assertEquals(5, teams2[1].size());
 
-// 1400000 variants :)		
+//// 1400000 variants :)		
 //		Player players3[] = {
 //				new Player(1), new Player(1), new Player(1), new Player(1), new Player(1),
 //				new Player(1), new Player(1), new Player(1), new Player(1), new Player(1), 
 //				new Player(1), new Player(1), new Player(1), new Player(1), new Player(1)};
-//		Team teams3[] = Team.split(players3, 3);
+//		Team teams3[] = Team.split(players3, 3, 1);
 //		assertEquals(5, teams3[0].size());
 //		assertEquals(5, teams3[1].size());
-//		assertEquals(5, teams3[3].size());
+//		assertEquals(5, teams3[2].size());
 	}
 
 }

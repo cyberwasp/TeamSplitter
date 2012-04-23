@@ -10,7 +10,7 @@ public class Team {
 	private List<Player> players = new ArrayList<Player>();
 	private int num;
 
-	public Team(Player players[], int num) {
+	public Team(int num, Player players[]) {
 		this.num = num;
 		if (players != null)
 			this.players.addAll(Arrays.asList(players));
@@ -102,6 +102,7 @@ public class Team {
 		}
 		return res;
 	}
+	
 	
 	public Player[] getPlayers(){
 		return (Player[]) players.toArray(new Player[0]);		
