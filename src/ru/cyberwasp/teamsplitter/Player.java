@@ -8,6 +8,7 @@ public class Player {
 	private final double metric;
 	private String name;
 	private int id;
+	private Team team;
 
 	public Player(){
 		this(0);
@@ -46,5 +47,17 @@ public class Player {
 		return " " + getName() + " (metric = " + metric + ")";
 	}
 	
+	public void setTeam(Team team)
+	{
+		if (this.team != null) 
+			this.team.remove(this);
+		if (team != null)
+			team.add(this);
+		this.team = team;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
 	
 }
