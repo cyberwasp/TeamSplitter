@@ -1,5 +1,7 @@
-package ru.cyberwasp.teamsplitter;
+package ru.cyberwasp.teamsplitter.views;
 
+import ru.cyberwasp.teamsplitter.Team;
+import ru.cyberwasp.teamsplitter.adapters.ResultPlayersAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.widget.GridView;

@@ -1,5 +1,6 @@
-package ru.cyberwasp.teamsplitter;
+package ru.cyberwasp.teamsplitter.db;
 
+import ru.cyberwasp.teamsplitter.Player;
 import android.content.Context;
 import android.database.Cursor;
 

@@ -1,6 +1,12 @@
-package ru.cyberwasp.teamsplitter;
+package ru.cyberwasp.teamsplitter.activities;
 
 import java.util.Arrays;
+
+import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.adapters.SelectPlayersAdapter;
+import ru.cyberwasp.teamsplitter.db.PlayersFactory;
+import ru.cyberwasp.teamsplitter.views.SelectPalyersView;
+import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
 
 import android.app.Activity;
 import android.content.Intent;

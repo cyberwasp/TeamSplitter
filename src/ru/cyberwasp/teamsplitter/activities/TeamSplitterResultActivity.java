@@ -1,5 +1,9 @@
-package ru.cyberwasp.teamsplitter;
+package ru.cyberwasp.teamsplitter.activities;
 
+import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.Team;
+import ru.cyberwasp.teamsplitter.db.PlayersFactory;
+import ru.cyberwasp.teamsplitter.views.TeamSplitterResultView;
 import android.app.Activity;
 import android.os.Bundle;
 

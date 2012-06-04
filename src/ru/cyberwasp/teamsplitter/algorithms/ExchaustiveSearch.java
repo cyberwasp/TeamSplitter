@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.Team;
-import ru.cyberwasp.teamsplitter.Utils;
 
 public class ExchaustiveSearch implements SplitAlgorithm {
 

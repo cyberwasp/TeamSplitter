@@ -1,8 +1,8 @@
-package ru.cyberwasp.teamsplitter;
+package ru.cyberwasp.teamsplitter.algorithms;
 
 public class Utils {
 
-	public static double calcMediane(double[] data){
+	public static double calcAvg(double[] data){
 		double res = 0.0;
 		for (int i = 0; i < data.length; i++) {
 			res += data[i];
@@ -12,7 +12,7 @@ public class Utils {
 	
 	public static double calcSquareOfStandartDeviation(double[] data){
 		double res = 0.0;
-		double mediane = calcMediane(data);
+		double mediane = calcAvg(data);
 		for (int i = 0; i < data.length; i++) {
 			double diff = data[i] - mediane;
 			res += diff * diff;

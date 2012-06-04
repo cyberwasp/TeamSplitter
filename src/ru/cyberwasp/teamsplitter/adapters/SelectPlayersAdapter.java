@@ -1,5 +1,7 @@
-package ru.cyberwasp.teamsplitter;
+package ru.cyberwasp.teamsplitter.adapters;
 
+import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
