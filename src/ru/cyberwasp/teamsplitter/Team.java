@@ -65,10 +65,10 @@ public class Team {
 		}
 	}
 
-	public static Team[] split(Player players[], int teamCount, int maxDiffPlayerCount)
+	public static Team[] split(Player players[], int teamCount)
 	{
-		//return new ExchaustiveSearch().split(players, teamCount, maxDiffPlayerCount);
-		return new BubbleSearch().split(players, teamCount, maxDiffPlayerCount);
+		//return new ExchaustiveSearch().split(players, teamCount);
+		return new BubbleSearch().split(players, teamCount);
 	}
 	
 	public Player[] getPlayers(){

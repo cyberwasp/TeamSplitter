@@ -16,7 +16,7 @@ public class ExchaustiveSearch implements SplitAlgorithm {
 	}
 	
 	@Override
-	public Team[] split(final Player[] players, int teamCount, int maxDiffPlayerCount) {
+	public Team[] split(final Player[] players, int teamCount) {
 		
 		Team res[] = new Team[teamCount];
 		
@@ -49,7 +49,7 @@ public class ExchaustiveSearch implements SplitAlgorithm {
 			
 			Arrays.sort(cntInTeam);
 			
-			if ((cntInTeam[cntInTeam.length - 1] - cntInTeam[0]) > maxDiffPlayerCount) 
+			if ((cntInTeam[cntInTeam.length - 1] - cntInTeam[0]) > 1) 
 				continue;
 			
 			double[] metrics = calcMetric(players, playersInTeams, teamCount);

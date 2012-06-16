@@ -24,7 +24,7 @@ public class BubbleSearch implements SplitAlgorithm {
 	}
 	
 	@Override
-	public Team[] split(Player[] players, int teamCount, int maxDiffPlayerCount) {
+	public Team[] split(Player[] players, int teamCount) {
 		this.players = players;
 		this.history = new HashSet<String>();
 		genFirstTeams(teamCount);

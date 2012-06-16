@@ -4,5 +4,5 @@ import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.Team;
 
 public interface SplitAlgorithm {	
-	public Team[] split(final Player players[], int teamCount, int maxDiffPlayerCount); 
+	public Team[] split(final Player players[], int teamCount); 
 }

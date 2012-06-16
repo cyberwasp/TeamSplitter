@@ -19,7 +19,6 @@ public class SelectPalyersView extends LinearLayout {
 	private GridView grid;
 	private Button button;
 	private Spinner numOfTeams;
-	private Spinner maxDiffOfCount;
 	
 	private Pair<LinearLayout, Spinner> addComboboxWithCaption(String caption, String [] data){
 		
@@ -61,11 +60,6 @@ public class SelectPalyersView extends LinearLayout {
 		addView(pair1.first);
 		numOfTeams = pair1.second;
 		
-		String counts[] = {"1", "2", "3"};
-		Pair<LinearLayout, Spinner> pair2 = addComboboxWithCaption("Max diff of count: ", counts);
-		addView(pair2.first);
-		maxDiffOfCount = pair2.second;
-		
 		button = new Button(context);
 		button.setText("Split");
 		addView(button, lp);
@@ -86,10 +80,6 @@ public class SelectPalyersView extends LinearLayout {
 
 	public GridView getGrid() {
 		return grid;
-	}
-
-	public Spinner getMaxDiffOfCount() {
-		return maxDiffOfCount;
 	}
 
 }
