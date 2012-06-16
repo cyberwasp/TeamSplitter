@@ -20,49 +20,41 @@ public class SelectPalyersView extends LinearLayout {
 	private Button button;
 	private Spinner numOfTeams;
 	
-	private Pair<LinearLayout, Spinner> addComboboxWithCaption(String caption, String [] data){
-		
-		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);		
-		LinearLayout layout = new LinearLayout(getContext());
-		layout.setOrientation(HORIZONTAL);
-		layout.setLayoutParams(lp);
-		
-		TextView captionView = new TextView(getContext());
-		captionView.setText(caption);
-		layout.addView(captionView);
-
-		Spinner spinner = new Spinner(getContext());
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
-		spinner.setLayoutParams(lp);
-		layout.addView(spinner);
-		
-		return new Pair<LinearLayout, Spinner>(layout, spinner);
-	}
-
 	public SelectPalyersView(Context context) {
 		super(context);
 		setOrientation(VERTICAL);
 		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); 
+		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT); 
+		LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		
+		LinearLayout panel = new LinearLayout(context);
+		//setLayoutParams(lp);
+		panel.setOrientation(HORIZONTAL);
+		addView(panel);
+		
+		caption = new TextView(getContext());
+		caption.setText("Number of teams: ");
+		panel.addView(caption, lp);
+
+		numOfTeams = new Spinner(getContext());
+		String numbers[] = {"2", "3", "4", "5"};
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, numbers);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		numOfTeams.setAdapter(adapter);
+		panel.addView(numOfTeams, lp);
+
+		button = new Button(context);
+		button.setText("Split");
+		panel.addView(button, lp1);
+		
 		caption = new TextView(context);
-		caption.setText("Select players");
-		addView(caption, lp);
+		caption.setText("Select players:");
+		addView(caption, lp1);
 		grid = new GridView(context);
 		grid.setVerticalSpacing(2);
 		grid.setHorizontalSpacing(2);
 		grid.setGravity(Gravity.CENTER);
-		addView(grid, lp);
-		
-		String numbers[] = {"2", "3", "4", "5"};
-		Pair<LinearLayout, Spinner> pair1 = addComboboxWithCaption("Number of teams: ", numbers);
-		addView(pair1.first);
-		numOfTeams = pair1.second;
-		
-		button = new Button(context);
-		button.setText("Split");
-		addView(button, lp);
+		addView(grid, lp1);
 	}
 
 	public void setPlayers(Player[] players) {
