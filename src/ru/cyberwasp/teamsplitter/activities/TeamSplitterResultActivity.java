@@ -2,7 +2,7 @@ package ru.cyberwasp.teamsplitter.activities;
 
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.Team;
-import ru.cyberwasp.teamsplitter.db.PlayersFactory;
+import ru.cyberwasp.teamsplitter.db.DataSource;
 import ru.cyberwasp.teamsplitter.views.TeamSplitterResultView;
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,16 +13,31 @@ public class TeamSplitterResultActivity extends Activity {
 	public static final String PARAM_NAME_SELECTED_IDS = "SelectedIDs";
 	
 	private TeamSplitterResultView view;
+	private DataSource datasource;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		view = new TeamSplitterResultView(this);
+		datasource = new DataSource(this);
+		datasource.open();
 	    Team teams[] = splitSelectedPlayers(); 
 		view.setTeams(teams);
 		setContentView(view);
     }
 
+	@Override
+	protected void onResume() {
+		datasource.open();
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		datasource.close();
+		super.onPause();
+	}	
+	
 	private Team[] splitSelectedPlayers() {
 		Player[] players = getSelectedPlayers();
 		int teamCount = getTeamCount();
@@ -36,8 +51,7 @@ public class TeamSplitterResultActivity extends Activity {
 
 	private Player[] getSelectedPlayers() {
 		Bundle extras = getIntent().getExtras();
-		int ids[] = extras.getIntArray(PARAM_NAME_SELECTED_IDS);
-		PlayersFactory factory = new PlayersFactory(this);
-		return factory.getPlayers(ids);
+		int ids[] = extras.getIntArray(PARAM_NAME_SELECTED_IDS);		
+		return datasource.getPlayers(ids);
 	}
 }

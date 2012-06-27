@@ -28,6 +28,10 @@ public class Player {
 		this.metric = metric;
 		this.name = name;
 	}
+	
+	public Player(String name, double metric) {
+		this(gen+1, name, metric);	
+	}
 
 	public double getMetric() {
 		return metric;

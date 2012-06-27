@@ -4,10 +4,9 @@ import java.util.Arrays;
 
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.adapters.SelectPlayersAdapter;
-import ru.cyberwasp.teamsplitter.db.PlayersFactory;
+import ru.cyberwasp.teamsplitter.db.DataSource;
 import ru.cyberwasp.teamsplitter.views.SelectPalyersView;
 import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 public class TeamSplitterActivity extends Activity {
     
 	private SelectPalyersView view;
+	private DataSource datasource;
 
     class IntentOnClickListener implements OnClickListener{
     	
@@ -41,6 +41,8 @@ public class TeamSplitterActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		view = new SelectPalyersView(this);
+		datasource = new DataSource(this);
+		datasource.open();
 	    Player players[] = getAllPlayers(); 
 		view.setPlayers(players);
 		setContentView(view);
@@ -48,6 +50,18 @@ public class TeamSplitterActivity extends Activity {
 		view.getSplitButton().setOnClickListener(l);
     }
 
+	@Override
+	protected void onResume() {
+		datasource.open();
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		datasource.close();
+		super.onPause();
+	}
+	
 	public int[] getSelectedIds() {
 		SelectPlayersAdapter adapter = (SelectPlayersAdapter) view.getGrid().getAdapter();
 		int res[] = new int[adapter.getCount()];
@@ -68,7 +82,6 @@ public class TeamSplitterActivity extends Activity {
 	}
 
 	private Player[] getAllPlayers() {
-		PlayersFactory factory = new PlayersFactory(this);
-		return factory.getAllPlayers();
+		return datasource.getAllPlayers();
 	}
 }
