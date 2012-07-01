@@ -1,6 +1,7 @@
 package ru.cyberwasp.teamsplitter.views;
 
 import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.SelectedPlayer;
 import ru.cyberwasp.teamsplitter.adapters.BasePlayersAdapter;
 import ru.cyberwasp.teamsplitter.adapters.SelectPlayersAdapter;
 import android.content.Context;
@@ -56,7 +57,7 @@ public class SelectPlayersView extends LinearLayout {
 		addView(grid, lp1);
 	}
 
-	public void setPlayers(Player[] players) {
+	public void setPlayers(SelectedPlayer[] players) {
 		BasePlayersAdapter adapter =  new SelectPlayersAdapter(getContext(), players);
 		grid.setAdapter(adapter);
 	}

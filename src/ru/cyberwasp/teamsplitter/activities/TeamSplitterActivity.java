@@ -1,8 +1,12 @@
 package ru.cyberwasp.teamsplitter.activities;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.SelectedPlayer;
 import ru.cyberwasp.teamsplitter.adapters.SelectPlayersAdapter;
 import ru.cyberwasp.teamsplitter.db.DataSource;
 import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
@@ -24,6 +28,7 @@ public class TeamSplitterActivity extends Activity {
     
 	private SelectPlayersView view;
 	private DataSource datasource;
+	private List<SelectedPlayer> players = new ArrayList<SelectedPlayer>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,8 +36,7 @@ public class TeamSplitterActivity extends Activity {
 		view = new SelectPlayersView(this);
 		datasource = new DataSource(this);
 		datasource.open();
-	    Player players[] = getAllPlayers(); 
-		view.setPlayers(players);
+		fillData();
 		setContentView(view);
 		view.getSplitButton().setOnClickListener(new OnClickListener() {
 			@Override
@@ -45,8 +49,9 @@ public class TeamSplitterActivity extends Activity {
     
 	@Override
 	protected void onResume() {
-		datasource.open();
 		super.onResume();
+		datasource.open();
+		fillData();
 	}
 
 	@Override
@@ -118,19 +123,25 @@ public class TeamSplitterActivity extends Activity {
 	}
 
 	public int[] getSelectedIds() {
-		SelectPlayersAdapter adapter = (SelectPlayersAdapter) view.getGrid().getAdapter();
-		int res[] = new int[adapter.getCount()];
+		int res[] = new int[players.size()];
 		int j = 0;
-		for (int i = 0; i < adapter.getCount(); i++) {
-			SelectPlayerView selectPlayerView = (SelectPlayerView) view.getGrid().getChildAt(i);
-			if (selectPlayerView.isChecked()){
-				res[j] = selectPlayerView.getPlayer().getId();
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).isSelected()){
+				res[j] = players.get(i).getId();
 				j += 1;
 			}
 		}
 		return Arrays.copyOf(res, j);
 	}
-
+	
+	public int[] getAllIds() {
+		int res[] = new int[players.size()];
+		for (int i = 0; i < players.size(); i++) {
+			res[i] = players.get(i).getId();
+		}
+		return res;
+	}
+	
 	public Integer getTeamCount() {
 		TextView textView = (TextView)view.getNumOfTeams().getSelectedView();
 		return new Integer(textView.getText().toString());
@@ -140,5 +151,19 @@ public class TeamSplitterActivity extends Activity {
 		return datasource.getAllPlayers();
 	}
 	
-	
+	private void fillData() {
+		int selectedIDs[] = getSelectedIds();
+		Arrays.sort(selectedIDs);
+		int allIDs[] = getAllIds();
+		Arrays.sort(allIDs);
+		Player players[] = getAllPlayers();
+		this.players.clear();
+		for (int i = 0; i < players.length; i++) {
+			Player player = players[i]; 
+			boolean selected = (Arrays.binarySearch(selectedIDs, player.getId()) >= 0) || 
+			                   (Arrays.binarySearch(allIDs, player.getId()) < 0);
+			this.players.add(new SelectedPlayer(player, selected));
+		} 
+		view.setPlayers(this.players.toArray(new SelectedPlayer[0]));
+	}
 }

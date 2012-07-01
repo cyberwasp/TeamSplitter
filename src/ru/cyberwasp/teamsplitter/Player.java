@@ -29,6 +29,14 @@ public class Player {
 		this.name = name;
 	}
 	
+	
+	public Player(Player player)
+	{
+		this.id = player.id;
+		this.metric = player.metric;
+		this.name = player.name;
+	}
+	
 	public Player(String name, double metric) {
 		this(gen+1, name, metric);	
 	}

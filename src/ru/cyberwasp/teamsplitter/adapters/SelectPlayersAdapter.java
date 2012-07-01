@@ -1,6 +1,7 @@
 package ru.cyberwasp.teamsplitter.adapters;
 
 import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.SelectedPlayer;
 import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
 import android.content.Context;
 import android.view.View;
@@ -20,7 +21,7 @@ public class SelectPlayersAdapter extends BasePlayersAdapter {
 		else {
 			view = (SelectPlayerView) convertView;
 		}
-		view.setPlayer(getPlayers()[position]);
+		view.setPlayer((SelectedPlayer)getPlayers()[position]);
 		return view;
 	}
 

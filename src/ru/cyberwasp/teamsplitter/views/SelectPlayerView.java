@@ -1,12 +1,28 @@
 package ru.cyberwasp.teamsplitter.views;
 
 import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.SelectedPlayer;
 import android.content.Context;
 import android.widget.CheckBox;
 
 public class SelectPlayerView extends CheckBox{
 
-	private Player player = null;
+	@Override
+	public boolean isChecked() {
+		if (player != null)
+			return player.isSelected();
+		else
+			return false;
+	}
+
+	@Override
+	public void setChecked(boolean checked) {
+		if (player != null)
+			player.setSelected(checked);
+		super.setChecked(checked);
+	}
+	
+	private SelectedPlayer player = null;
 
 	public SelectPlayerView(Context context) {
 		super(context);
@@ -14,13 +30,12 @@ public class SelectPlayerView extends CheckBox{
 		setLongClickable(true);
 	}
 	
-	public void setPlayer(Player player){
+	public void setPlayer(SelectedPlayer player){
 		this.player = player;
 		setText(player.getInfo());
 	}
 
-	public Player getPlayer() {
+	public SelectedPlayer getPlayer() {
 		return player;
 	}
-
 }
