@@ -2,6 +2,7 @@ package ru.cyberwasp.teamsplitter.views;
 
 import ru.cyberwasp.teamsplitter.Player;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,7 +13,8 @@ public class PlayerEditorView extends LinearLayout {
 	private TextView nameEdit;
 	private TextView metricEdit;
 	private TextView metricCaption;
-	private Player player;
+	private Button okButton;
+	private TextView cancelButton;
 	
 	public PlayerEditorView(Context context) {
 		super(context);
@@ -21,30 +23,41 @@ public class PlayerEditorView extends LinearLayout {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); 
 
 		nameCaption = new TextView(context);
-		nameCaption.setText("Enter player Name: ");
+		nameCaption.setText("Enter player name: ");
 		addView(nameCaption, lp);
 		nameEdit = new EditText(context);
 		addView(nameEdit, lp);
 
 	    metricCaption = new TextView(context);
-		metricCaption.setText("Enter player Name: ");
+		metricCaption.setText("Enter player metric: ");
 		addView(metricCaption, lp);
 		metricEdit = new EditText(context);
 		addView(metricEdit, lp);
+		
+		okButton = new Button(context);		
+		okButton.setText("Ok");
+		addView(getOkButton());
+
+		cancelButton = new Button(context);
+		cancelButton.setText("Cancel");
+		addView(cancelButton);
+
 	}
 
-	public void setPlayer(Player player)
-	{
-		this.player = player;
-		nameEdit.setText(player.getName());
-		metricEdit.setText(new Double(player.getMetric()).toString());	
+	public TextView getMetricEdit() {
+		return metricEdit;
 	}
 	
-	public Player getPlayer()
-	{
-		return player;
+	public TextView getNameEdit(){
+		return nameEdit;
 	}
-	
-	
-	
+
+	public Button getOkButton() {
+		return okButton;
+	}
+
+	public TextView getCancelButton() {
+		return cancelButton;
+	}
+
 }

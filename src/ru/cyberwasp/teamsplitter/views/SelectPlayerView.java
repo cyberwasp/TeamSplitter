@@ -11,6 +11,7 @@ public class SelectPlayerView extends CheckBox{
 	public SelectPlayerView(Context context) {
 		super(context);
 		setChecked(true);
+		setLongClickable(true);
 	}
 	
 	public void setPlayer(Player player){

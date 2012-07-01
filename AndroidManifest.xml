@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ru.cyberwasp.teamsplitter.activities.TeamSplitterResultActivity"></activity>
-    </application>
+        <activity android:name="ru.cyberwasp.teamsplitter.activities.PlayerEditorActivity"></activity>
+        </application>
 
 </manifest>

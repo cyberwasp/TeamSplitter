@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 public class Player {
 	
 	private static int gen = 0;
-	private final double metric;
+	private double metric;
 	private String name;
 	private int id;
 	private Team team;
@@ -39,6 +39,15 @@ public class Player {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	
+	public void setMetric(double metric){
+		this.metric = metric;
 	}
 
 	public int getId() {

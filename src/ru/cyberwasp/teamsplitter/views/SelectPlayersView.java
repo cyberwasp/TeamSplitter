@@ -12,14 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SelectPalyersView extends LinearLayout {
+public class SelectPlayersView extends LinearLayout {
 
 	private TextView caption;
 	private GridView grid;
 	private Button button;
 	private Spinner numOfTeams;
 	
-	public SelectPalyersView(Context context) {
+	public SelectPlayersView(Context context) {
 		super(context);
 		setOrientation(VERTICAL);
 		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -72,5 +72,4 @@ public class SelectPalyersView extends LinearLayout {
 	public GridView getGrid() {
 		return grid;
 	}
-
 }

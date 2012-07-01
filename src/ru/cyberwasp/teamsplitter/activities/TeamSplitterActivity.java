@@ -5,50 +5,44 @@ import java.util.Arrays;
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.adapters.SelectPlayersAdapter;
 import ru.cyberwasp.teamsplitter.db.DataSource;
-import ru.cyberwasp.teamsplitter.views.SelectPalyersView;
+import ru.cyberwasp.teamsplitter.views.SelectPlayersView;
 import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TeamSplitterActivity extends Activity {
     
-	private SelectPalyersView view;
+	private SelectPlayersView view;
 	private DataSource datasource;
 
-    class IntentOnClickListener implements OnClickListener{
-    	
-    	private final TeamSplitterActivity context;
-		private final Class<?> cls;
-		
-		public IntentOnClickListener(TeamSplitterActivity context, Class<?> cls) {
-			this.context = context;
-			this.cls = cls;
-		}
-    	
-    	public void onClick(View v){
-        	Intent intent = new Intent(context, cls);
-        	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_TEAM_COUNT, context.getTeamCount());
-        	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_SELECTED_IDS, context.getSelectedIds());
-        	startActivity(intent);
-    	}
-    }   
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		view = new SelectPalyersView(this);
+		view = new SelectPlayersView(this);
 		datasource = new DataSource(this);
 		datasource.open();
 	    Player players[] = getAllPlayers(); 
 		view.setPlayers(players);
 		setContentView(view);
-		OnClickListener l = new IntentOnClickListener(this, TeamSplitterResultActivity.class);
-		view.getSplitButton().setOnClickListener(l);
-    }
+		view.getSplitButton().setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				getSplitResult();
+			}
+		});
+		registerForContextMenu(view.getGrid());
+	}
 
 	@Override
 	protected void onResume() {
@@ -62,6 +56,48 @@ public class TeamSplitterActivity extends Activity {
 		super.onPause();
 	}
 	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		if (v == view.getGrid()) {
+			menu.setHeaderTitle("Operations");
+			menu.add(Menu.NONE, 0, 0, "Edit");
+			menu.add(Menu.NONE, 1, 0, "Delete");
+		}
+	}	
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+	  AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+	  switch (item.getItemId()) {
+	  	case 0: editPlayer(info.position); break;
+	  	case 1: deletePlayer(info.position); break;
+	  }	  
+	  return true;
+	}	
+	
+	private void getSplitResult(){
+		Intent intent = new Intent(this, TeamSplitterResultActivity.class);
+    	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_TEAM_COUNT, this.getTeamCount());
+    	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_SELECTED_IDS, this.getSelectedIds());
+    	startActivity(intent);
+	}
+	
+	private void editPlayer(int position) {
+		Player player = getPlayerByPosition(position);
+       	Intent intent = new Intent(this, PlayerEditorActivity.class);
+    	intent.putExtra(PlayerEditorActivity.PARAM_NAME_PLAYER_ID, player.getId());
+    	startActivity(intent);
+	}
+
+	private void deletePlayer(int position) {
+		Player player = getPlayerByPosition(position);
+		datasource.delete(player);		
+	}
+
+	private Player getPlayerByPosition(int position) {
+		return (Player)view.getGrid().getItemAtPosition(position);
+	}
+
 	public int[] getSelectedIds() {
 		SelectPlayersAdapter adapter = (SelectPlayersAdapter) view.getGrid().getAdapter();
 		int res[] = new int[adapter.getCount()];
