@@ -35,7 +35,6 @@ public class PlayerEditorActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		saveState();
 		datasource.close();
 	}
 	
@@ -52,7 +51,7 @@ public class PlayerEditorActivity extends Activity {
 
 	private boolean isSetPlayerID() {
 		Bundle extras = getIntent().getExtras();
-		return extras.containsKey(PARAM_NAME_PLAYER_ID);
+		return (extras != null) && extras.containsKey(PARAM_NAME_PLAYER_ID);
 	}
 
 	private OnClickListener okClick = new OnClickListener() {

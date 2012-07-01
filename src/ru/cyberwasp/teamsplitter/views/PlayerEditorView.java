@@ -1,6 +1,5 @@
 package ru.cyberwasp.teamsplitter.views;
 
-import ru.cyberwasp.teamsplitter.Player;
 import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;

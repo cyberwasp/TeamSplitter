@@ -5,8 +5,9 @@ import java.util.Arrays;
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.adapters.SelectPlayersAdapter;
 import ru.cyberwasp.teamsplitter.db.DataSource;
-import ru.cyberwasp.teamsplitter.views.SelectPlayersView;
 import ru.cyberwasp.teamsplitter.views.SelectPlayerView;
+import ru.cyberwasp.teamsplitter.views.SelectPlayersView;
+import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TeamSplitterActivity extends Activity {
     
@@ -43,7 +42,7 @@ public class TeamSplitterActivity extends Activity {
 		});
 		registerForContextMenu(view.getGrid());
 	}
-
+    
 	@Override
 	protected void onResume() {
 		datasource.open();
@@ -74,7 +73,22 @@ public class TeamSplitterActivity extends Activity {
 	  }	  
 	  return true;
 	}	
-	
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add(0, 0, 0, "New player");
+        item.setIcon(R.drawable.ic_menu_add);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0: addPlayer(); break; 
+        }
+        return true;
+    }   
+    
 	private void getSplitResult(){
 		Intent intent = new Intent(this, TeamSplitterResultActivity.class);
     	intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_TEAM_COUNT, this.getTeamCount());
@@ -92,6 +106,11 @@ public class TeamSplitterActivity extends Activity {
 	private void deletePlayer(int position) {
 		Player player = getPlayerByPosition(position);
 		datasource.delete(player);		
+	}
+
+	private void addPlayer() {
+		Intent intent = new Intent(this, PlayerEditorActivity.class);
+		startActivity(intent);
 	}
 
 	private Player getPlayerByPosition(int position) {
@@ -120,4 +139,6 @@ public class TeamSplitterActivity extends Activity {
 	private Player[] getAllPlayers() {
 		return datasource.getAllPlayers();
 	}
+	
+	
 }
