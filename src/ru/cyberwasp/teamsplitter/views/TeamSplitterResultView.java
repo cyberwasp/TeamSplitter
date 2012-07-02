@@ -38,8 +38,8 @@ public class TeamSplitterResultView extends LinearLayout {
             }
 
         if (grids != null)
-            for (int i = 0; i < grids.length; i++) {
-                removeView(grids[i]);
+            for (GridView grid : grids) {
+                removeView(grid);
             }
 
         grids = new GridView[teams.length];

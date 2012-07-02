@@ -28,8 +28,8 @@ public class DataSource {
             return "";
         else {
             String res = "_id in (-1";
-            for (int i = 0; i < ids.length; i++) {
-                res += "," + ids[i];
+            for (int id : ids) {
+                res += "," + id;
             }
             res += ")";
             return res;

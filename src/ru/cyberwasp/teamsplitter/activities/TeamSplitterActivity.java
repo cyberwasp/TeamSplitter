@@ -128,9 +128,9 @@ public class TeamSplitterActivity extends Activity {
     public int[] getSelectedIds() {
         int res[] = new int[players.size()];
         int j = 0;
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).isSelected()) {
-                res[j] = players.get(i).getId();
+        for (SelectedPlayer player : players) {
+            if (player.isSelected()) {
+                res[j] = player.getId();
                 j += 1;
             }
         }
@@ -161,8 +161,7 @@ public class TeamSplitterActivity extends Activity {
         Arrays.sort(allIDs);
         Player players[] = getAllPlayers();
         this.players.clear();
-        for (int i = 0; i < players.length; i++) {
-            Player player = players[i];
+        for (Player player : players) {
             boolean selected = (Arrays.binarySearch(selectedIDs, player.getId()) >= 0) ||
                     (Arrays.binarySearch(allIDs, player.getId()) < 0);
             this.players.add(new SelectedPlayer(player, selected));

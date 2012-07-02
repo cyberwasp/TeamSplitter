@@ -35,8 +35,8 @@ public class BubbleSearch implements SplitAlgorithm {
 
     private void calcTeamAvg() {
         double total = 0;
-        for (int i = 0; i < players.length; i++) {
-            total += players[i].getMetric();
+        for (Player player : players) {
+            total += player.getMetric();
         }
         teamAvg = total / teams.length;
     }
@@ -45,10 +45,8 @@ public class BubbleSearch implements SplitAlgorithm {
         boolean needStop = false;
         while (!needStop) {
             needStop = true;
-            for (int i = 0; i < teams.length; i++) {
-                for (int j = 0; j < teams.length; j++) {
-                    Team t1 = teams[i];
-                    Team t2 = teams[j];
+            for (Team t1 : teams) {
+                for (Team t2 : teams) {
                     if (t1.getID() > t2.getID()) {
                         if (exchangeTwoPlayers(t1, t2)) {
                             needStop = false;
@@ -103,8 +101,7 @@ public class BubbleSearch implements SplitAlgorithm {
 
     private String genState(Player p1, Player p2) {
         StringBuilder res = new StringBuilder("");
-        for (int i = 0; i < players.length; i++) {
-            Player p = players[i];
+        for (Player p : players) {
             Team t = p.getTeam();
             if (p == p1)
                 t = p2.getTeam();

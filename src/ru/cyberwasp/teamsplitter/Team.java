@@ -86,8 +86,8 @@ public class Team {
 
     public double getMetric() {
         double res = 0;
-        for (int i = 0; i < players.size(); i++) {
-            res += players.get(i).getMetric();
+        for (Player player : players) {
+            res += player.getMetric();
         }
         return res;
     }

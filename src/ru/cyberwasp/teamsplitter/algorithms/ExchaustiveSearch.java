@@ -54,7 +54,7 @@ public class ExchaustiveSearch implements SplitAlgorithm {
 
             double[] metrics = calcMetric(players, playersInTeams, teamCount);
 
-            double deviation = Utils.calcSquareOfStandartDeviation(metrics);
+            double deviation = Utils.calcSquareOfStandardDeviation(metrics);
 
             if (deviation < minDeviation) {
                 for (int j = 0; j < teamCount; j++) {
