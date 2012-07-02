@@ -8,55 +8,55 @@ import android.widget.TextView;
 
 public class PlayerEditorView extends LinearLayout {
 
-	private TextView nameCaption;
-	private TextView nameEdit;
-	private TextView metricEdit;
-	private TextView metricCaption;
-	private Button okButton;
-	private TextView cancelButton;
-	
-	public PlayerEditorView(Context context) {
-		super(context);
-		setOrientation(VERTICAL);
-		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); 
+    private TextView nameCaption;
+    private TextView nameEdit;
+    private TextView metricEdit;
+    private TextView metricCaption;
+    private Button okButton;
+    private TextView cancelButton;
 
-		nameCaption = new TextView(context);
-		nameCaption.setText("Enter player name: ");
-		addView(nameCaption, lp);
-		nameEdit = new EditText(context);
-		addView(nameEdit, lp);
+    public PlayerEditorView(Context context) {
+        super(context);
+        setOrientation(VERTICAL);
+        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-	    metricCaption = new TextView(context);
-		metricCaption.setText("Enter player metric: ");
-		addView(metricCaption, lp);
-		metricEdit = new EditText(context);
-		addView(metricEdit, lp);
-		
-		okButton = new Button(context);		
-		okButton.setText("Ok");
-		addView(getOkButton());
+        nameCaption = new TextView(context);
+        nameCaption.setText("Enter player name: ");
+        addView(nameCaption, lp);
+        nameEdit = new EditText(context);
+        addView(nameEdit, lp);
 
-		cancelButton = new Button(context);
-		cancelButton.setText("Cancel");
-		addView(cancelButton);
+        metricCaption = new TextView(context);
+        metricCaption.setText("Enter player metric: ");
+        addView(metricCaption, lp);
+        metricEdit = new EditText(context);
+        addView(metricEdit, lp);
 
-	}
+        okButton = new Button(context);
+        okButton.setText("Ok");
+        addView(getOkButton());
 
-	public TextView getMetricEdit() {
-		return metricEdit;
-	}
-	
-	public TextView getNameEdit(){
-		return nameEdit;
-	}
+        cancelButton = new Button(context);
+        cancelButton.setText("Cancel");
+        addView(cancelButton);
 
-	public Button getOkButton() {
-		return okButton;
-	}
+    }
 
-	public TextView getCancelButton() {
-		return cancelButton;
-	}
+    public TextView getMetricEdit() {
+        return metricEdit;
+    }
+
+    public TextView getNameEdit() {
+        return nameEdit;
+    }
+
+    public Button getOkButton() {
+        return okButton;
+    }
+
+    public TextView getCancelButton() {
+        return cancelButton;
+    }
 
 }
