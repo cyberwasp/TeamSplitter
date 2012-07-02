@@ -1,37 +1,37 @@
 package ru.cyberwasp.teamsplitter.adapters;
 
-import ru.cyberwasp.teamsplitter.Player;
 import android.content.Context;
 import android.widget.BaseAdapter;
+import ru.cyberwasp.teamsplitter.Player;
 
 public abstract class BasePlayersAdapter extends BaseAdapter {
 
-		private final Player players[];
-		private final Context context;
+    private final Player players[];
+    private final Context context;
 
-		public BasePlayersAdapter(Context context, Player players[]) {
-			this.context = context;
-			this.players = players;
-		}
+    public BasePlayersAdapter(Context context, Player players[]) {
+        this.context = context;
+        this.players = players;
+    }
 
-		public int getCount() {
-			return players.length;
-		}
+    public int getCount() {
+        return players.length;
+    }
 
-		public Object getItem(int position) {
-			return players[position];
-		}
+    public Object getItem(int position) {
+        return players[position];
+    }
 
-		public long getItemId(int position) {
-			return players[position].getId();
-		}
+    public long getItemId(int position) {
+        return players[position].getId();
+    }
 
-		public Player[] getPlayers() {
-			return players;
-		}
+    public Player[] getPlayers() {
+        return players;
+    }
 
-		public Context getContext() {
-			return context;
-		}
+    public Context getContext() {
+        return context;
+    }
 
 }
