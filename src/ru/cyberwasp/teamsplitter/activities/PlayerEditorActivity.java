@@ -71,12 +71,12 @@ public class PlayerEditorActivity extends Activity {
 
     private void fillData() {
         view.getNameEdit().setText(player.getName());
-        view.getMetricEdit().setText(new Double(player.getMetric()).toString());
+        view.getMetricEdit().setText(Double.toString(player.getMetric()));
     }
 
     private void saveState() {
         player.setName(view.getNameEdit().getText().toString());
-        player.setMetric(new Double(view.getMetricEdit().getText().toString()));
+        player.setMetric(Double.valueOf(view.getMetricEdit().getText().toString()));
         datasource.save(player);
     }
 

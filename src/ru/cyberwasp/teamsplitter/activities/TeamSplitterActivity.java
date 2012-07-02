@@ -145,9 +145,9 @@ public class TeamSplitterActivity extends Activity {
         return res;
     }
 
-    public Integer getTeamCount() {
+    public int getTeamCount() {
         TextView textView = (TextView) view.getNumOfTeams().getSelectedView();
-        return new Integer(textView.getText().toString());
+        return Integer.valueOf(textView.getText().toString());
     }
 
     private Player[] getAllPlayers() {

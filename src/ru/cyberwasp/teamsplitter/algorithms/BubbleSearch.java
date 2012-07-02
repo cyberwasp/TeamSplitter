@@ -110,7 +110,7 @@ public class BubbleSearch implements SplitAlgorithm {
                 t = p2.getTeam();
             if (p == p2)
                 t = p1.getTeam();
-            res.append(new Integer(t.getID()).toString());
+            res.append(t.getID());
             res.append(";");
         }
         return res.toString();
