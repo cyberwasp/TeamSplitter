@@ -8,10 +8,7 @@ public class SelectPlayerView extends CheckBox {
 
     @Override
     public boolean isChecked() {
-        if (player != null)
-            return player.isSelected();
-        else
-            return false;
+        return player != null && player.isSelected();
     }
 
     @Override
