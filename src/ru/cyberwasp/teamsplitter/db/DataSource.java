@@ -75,7 +75,7 @@ public class DataSource {
         ContentValues values = new ContentValues();
         values.put(DBHelper.PlayersTable.Columns.NAME, player.getName());
         values.put(DBHelper.PlayersTable.Columns.METRIC, player.getMetric());
-        if (player.getId() > 0)
+        if (player.getId() >= 0)
             db.update
                     (
                             DBHelper.PlayersTable.NAME,
