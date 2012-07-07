@@ -1,2 +1,4 @@
 -preselect team for some players
--add/del/edit player
++add/del/edit player
+-palyer editor: check metric is valid float
+-player editor: check name is not empty
