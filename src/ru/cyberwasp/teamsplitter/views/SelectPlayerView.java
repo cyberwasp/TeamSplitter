@@ -1,15 +1,11 @@
 package ru.cyberwasp.teamsplitter.views;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.CheckBox;
 import ru.cyberwasp.teamsplitter.SelectedPlayer;
 
 public class SelectPlayerView extends CheckBox {
-
-    @Override
-    public boolean isChecked() {
-        return player != null && player.isSelected();
-    }
 
     @Override
     public void setChecked(boolean checked) {
@@ -28,6 +24,7 @@ public class SelectPlayerView extends CheckBox {
 
     public void setPlayer(SelectedPlayer player) {
         this.player = player;
+        setChecked(player.isSelected());
         setText(player.getInfo());
     }
 
