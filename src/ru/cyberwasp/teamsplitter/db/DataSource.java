@@ -1,10 +1,10 @@
 package ru.cyberwasp.teamsplitter.db;
 
+import ru.cyberwasp.teamsplitter.Player;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import ru.cyberwasp.teamsplitter.Player;
 
 public class DataSource {
 
@@ -23,12 +23,12 @@ public class DataSource {
         dbHelper.close();
     }
 
-    private String getCondition(int ids[]) {
+    private String getCondition(long ids[]) {
         if (ids == null)
             return "";
         else {
             String res = "_id in (-1";
-            for (int id : ids) {
+            for (long id : ids) {
                 res += "," + id;
             }
             res += ")";
@@ -41,7 +41,7 @@ public class DataSource {
         return getPlayers(null);
     }
 
-    public Player[] getPlayers(int ids[]) {
+    public Player[] getPlayers(long ids[]) {
         Cursor cursor = db.query(DBHelper.PlayersTable.NAME,
                 DBHelper.PlayersTable.ALL_COLUMNS,
                 getCondition(ids),
@@ -52,7 +52,7 @@ public class DataSource {
         int nameIndex = cursor.getColumnIndex(DBHelper.PlayersTable.Columns.NAME);
         int metricIndex = cursor.getColumnIndex(DBHelper.PlayersTable.Columns.METRIC);
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(idIndex);
+            long id = cursor.getLong(idIndex);
             String name = cursor.getString(nameIndex);
             double metric = cursor.getDouble(metricIndex);
             res[cursor.getPosition()] = new Player(id, name, metric);
@@ -62,8 +62,8 @@ public class DataSource {
         return res;
     }
 
-    public Player getPlayer(int id) {
-        int ids[] = new int[1];
+    public Player getPlayer(long id) {
+        long ids[] = new long[1];
         ids[0] = id;
         Player players[] = getPlayers(ids);
         if (players.length == 0)

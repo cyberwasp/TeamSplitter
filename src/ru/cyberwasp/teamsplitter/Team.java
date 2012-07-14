@@ -1,17 +1,17 @@
 package ru.cyberwasp.teamsplitter;
 
-import ru.cyberwasp.teamsplitter.algorithms.BubbleSearch;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ru.cyberwasp.teamsplitter.algorithms.BubbleSearch;
+
 public class Team {
-    private static int maxID = 0;
+    private static long maxID = 0;
     private List<Player> players = new ArrayList<Player>();
     private int num;
-    private int id;
+    private long id;
 
     public Team(int num, Player players[]) {
         this.num = num;
@@ -95,10 +95,10 @@ public class Team {
     public String getInfo() {
         DecimalFormat fmt = new DecimalFormat("#.##");
         String metric = fmt.format(getMetric());
-        return "Team " + num + " (metric = " + metric + ")";
+        return "Team " + num + " (" + metric + ")";
     }
 
-    public int getID() {
+    public long getID() {
         return id;
     }
 }

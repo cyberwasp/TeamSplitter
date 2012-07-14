@@ -1,9 +1,9 @@
 package ru.cyberwasp.teamsplitter.algorithms;
 
+import java.util.Arrays;
+
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.Team;
-
-import java.util.Arrays;
 
 public class ExchaustiveSearch implements SplitAlgorithm {
 
@@ -15,7 +15,6 @@ public class ExchaustiveSearch implements SplitAlgorithm {
         return res;
     }
 
-    @Override
     public Team[] split(final Player[] players, int teamCount) {
 
         Team res[] = new Team[teamCount];

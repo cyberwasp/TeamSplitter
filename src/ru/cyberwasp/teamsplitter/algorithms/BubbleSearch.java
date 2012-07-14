@@ -1,10 +1,10 @@
 package ru.cyberwasp.teamsplitter.algorithms;
 
-import ru.cyberwasp.teamsplitter.Player;
-import ru.cyberwasp.teamsplitter.Team;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.Team;
 
 public class BubbleSearch implements SplitAlgorithm {
 
@@ -23,8 +23,7 @@ public class BubbleSearch implements SplitAlgorithm {
         }
     }
 
-    @Override
-    public Team[] split(Player[] players, int teamCount) {
+    public Team[] split(final Player[] players, int teamCount) {
         this.players = players;
         this.history = new HashSet<String>();
         genFirstTeams(teamCount);

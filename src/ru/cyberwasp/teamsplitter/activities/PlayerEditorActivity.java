@@ -1,12 +1,12 @@
 package ru.cyberwasp.teamsplitter.activities;
 
+import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.db.DataSource;
+import ru.cyberwasp.teamsplitter.views.PlayerEditorView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import ru.cyberwasp.teamsplitter.Player;
-import ru.cyberwasp.teamsplitter.db.DataSource;
-import ru.cyberwasp.teamsplitter.views.PlayerEditorView;
 
 public class PlayerEditorActivity extends Activity {
 
@@ -44,9 +44,9 @@ public class PlayerEditorActivity extends Activity {
         super.onResume();
     }
 
-    private int getPlayerID() {
+    private long getPlayerID() {
         Bundle extras = getIntent().getExtras();
-        return extras.getInt(PARAM_NAME_PLAYER_ID);
+        return extras.getLong(PARAM_NAME_PLAYER_ID);
     }
 
     private boolean isSetPlayerID() {

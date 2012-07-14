@@ -1,6 +1,14 @@
 package ru.cyberwasp.teamsplitter.activities;
 
-import android.R;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.db.DataSource;
+import ru.cyberwasp.teamsplitter.views.SelectPlayersView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,20 +20,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import ru.cyberwasp.teamsplitter.Player;
-import ru.cyberwasp.teamsplitter.SelectedPlayer;
-import ru.cyberwasp.teamsplitter.db.DataSource;
-import ru.cyberwasp.teamsplitter.views.SelectPlayersView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TeamSplitterActivity extends Activity {
 
     private SelectPlayersView view;
     private DataSource datasource;
-    private List<SelectedPlayer> players = new ArrayList<SelectedPlayer>();
+    private List<Player> players = new ArrayList<Player>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,11 @@ public class TeamSplitterActivity extends Activity {
         fillData();
         setContentView(view);
         view.getSplitButton().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        	public void onClick(View v) {
                 getSplitResult();
             }
         });
-        registerForContextMenu(view.getGrid());
+        registerForContextMenu(view.getList());
     }
 
     @Override
@@ -59,7 +58,7 @@ public class TeamSplitterActivity extends Activity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        if (v == view.getGrid()) {
+        if (v == view.getList()) {
             menu.setHeaderTitle("Operations");
             menu.add(Menu.NONE, 0, 0, "Edit");
             menu.add(Menu.NONE, 1, 0, "Delete");
@@ -83,7 +82,7 @@ public class TeamSplitterActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item = menu.add(0, 0, 0, "New player");
-        item.setIcon(R.drawable.ic_menu_add);
+        item.setIcon(android.R.drawable.ic_menu_add);
         return true;
     }
 
@@ -122,23 +121,16 @@ public class TeamSplitterActivity extends Activity {
     }
 
     private Player getPlayerByPosition(int position) {
-        return (Player) view.getGrid().getItemAtPosition(position);
+        return (Player) view.getList().getItemAtPosition(position);
     }
 
-    public int[] getSelectedIds() {
-        int res[] = new int[players.size()];
-        int j = 0;
-        for (SelectedPlayer player : players) {
-            if (player.isSelected()) {
-                res[j] = player.getId();
-                j += 1;
-            }
-        }
-        return Arrays.copyOf(res, j);
+    public long[] getSelectedIds() {
+    	long [] res = view.getList().getCheckedItemIds();
+    	return res;
     }
 
-    public int[] getAllIds() {
-        int res[] = new int[players.size()];
+    public long[] getAllIds() {
+        long res[] = new long[players.size()];
         for (int i = 0; i < players.size(); i++) {
             res[i] = players.get(i).getId();
         }
@@ -155,17 +147,26 @@ public class TeamSplitterActivity extends Activity {
     }
 
     private void fillData() {
-        int selectedIDs[] = getSelectedIds();
+        long selectedIDs[] = getSelectedIds();
         Arrays.sort(selectedIDs);
-        int allIDs[] = getAllIds();
+        long allIDs[] = getAllIds();
         Arrays.sort(allIDs);
         Player players[] = getAllPlayers();
         this.players.clear();
+        Map<Player, Boolean> checkInfo = new HashMap<Player, Boolean>();
         for (Player player : players) {
             boolean selected = (Arrays.binarySearch(selectedIDs, player.getId()) >= 0) ||
                     (Arrays.binarySearch(allIDs, player.getId()) < 0);
-            this.players.add(new SelectedPlayer(player, selected));
+            this.players.add(player);
+            checkInfo.put(player, selected);
         }
-        view.setPlayers(this.players.toArray(new SelectedPlayer[0]));
+        view.setPlayers(this.players);
+        
+        int position = 0;
+        for (Player player : players) {
+            view.getList().setItemChecked(position, checkInfo.get(player));
+            position += 1;
+        }
+  
     }
 }

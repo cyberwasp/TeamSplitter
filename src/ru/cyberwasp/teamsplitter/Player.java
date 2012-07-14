@@ -7,7 +7,7 @@ public class Player {
     private static int gen = 0;
     private double metric;
     private String name;
-    private int id;
+    private long id;
     private Team team;
 
     public Player() {
@@ -23,12 +23,11 @@ public class Player {
         return "Name" + gen;
     }
 
-    public Player(int id, String name, double metric) {
+    public Player(long id, String name, double metric) {
         this.id = id;
         this.metric = metric;
         this.name = name;
     }
-
 
     public Player(Player player) {
         this.id = player.id;
@@ -57,14 +56,14 @@ public class Player {
         this.metric = metric;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     public String getInfo() {
         DecimalFormat fmt = new DecimalFormat("#.##");
         String metric = fmt.format(getMetric());
-        return " " + getName() + " (metric = " + metric + ")";
+        return " " + getName() + " (" + metric + ")";
     }
 
     public void setTeam(Team team) {
