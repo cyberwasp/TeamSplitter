@@ -28,7 +28,7 @@ public class TeamListView extends LinearLayout {
     public void setTeams(Team[] teams) {
         this.teams.setAdapter(new TeamListAdapter(getContext(), teams));
         for (int i = 0; i < teams.length; i++) {
-        	this.teams.expandGroup(i);
+            this.teams.expandGroup(i);
         }
     }
 }

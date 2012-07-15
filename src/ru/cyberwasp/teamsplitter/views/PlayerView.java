@@ -4,11 +4,11 @@ import ru.cyberwasp.teamsplitter.Player;
 import android.content.Context;
 import android.widget.TextView;
 
-public class ResultPlayerView extends TextView {
+public class PlayerView extends TextView {
 
     private Player player;
 
-    public ResultPlayerView(Context context) {
+    public PlayerView(Context context) {
         super(context);
     }
 

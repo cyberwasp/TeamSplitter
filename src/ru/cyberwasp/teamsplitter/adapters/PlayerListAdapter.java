@@ -18,19 +18,19 @@ public class PlayerListAdapter extends ArrayAdapter<Player> {
     @Override
     public boolean hasStableIds()
     {
-    	return true;
+        return true;
     }
 
     @Override
     public long getItemId(int position){
-    	return getItem(position).getId();
+        return getItem(position).getId();
     }
     
-  	@Override
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-  		TextView view = (TextView)super.getView(position, convertView, parent);
-  		view.setText(getItem(position).getInfo());
-  		view.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
-  		return view;
-  	}
+        TextView view = (TextView)super.getView(position, convertView, parent);
+        view.setText(getItem(position).getInfo());
+        view.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
+        return view;
+    }
 }

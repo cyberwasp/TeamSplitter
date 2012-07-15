@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="ru.cyberwasp.teamsplitter.activities.TeamSplitterActivity"
+            android:name=".activities.SelectPlayersActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ru.cyberwasp.teamsplitter.activities.TeamSplitterResultActivity"></activity>
-        <activity android:name="ru.cyberwasp.teamsplitter.activities.PlayerEditorActivity"></activity>
+        <activity android:name=".activities.SplitResultActivity"></activity>
+        <activity android:name=".activities.PlayerEditorActivity"></activity>
         </application>
 
 </manifest>

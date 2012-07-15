@@ -8,7 +8,7 @@ import java.util.Map;
 
 import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.db.DataSource;
-import ru.cyberwasp.teamsplitter.views.SelectPlayersView;
+import ru.cyberwasp.teamsplitter.views.PlayerListView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,22 +21,22 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-public class TeamSplitterActivity extends Activity {
+public class SelectPlayersActivity extends Activity {
 
-    private SelectPlayersView view;
+    private PlayerListView view;
     private DataSource datasource;
     private List<Player> players = new ArrayList<Player>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = new SelectPlayersView(this);
+        view = new PlayerListView(this);
         datasource = new DataSource(this);
         datasource.open();
         fillData();
         setContentView(view);
         view.getSplitButton().setOnClickListener(new OnClickListener() {
-        	public void onClick(View v) {
+            public void onClick(View v) {
                 getSplitResult();
             }
         });
@@ -97,9 +97,9 @@ public class TeamSplitterActivity extends Activity {
     }
 
     private void getSplitResult() {
-        Intent intent = new Intent(this, TeamSplitterResultActivity.class);
-        intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_TEAM_COUNT, this.getTeamCount());
-        intent.putExtra(TeamSplitterResultActivity.PARAM_NAME_SELECTED_IDS, this.getSelectedIds());
+        Intent intent = new Intent(this, SplitResultActivity.class);
+        intent.putExtra(SplitResultActivity.PARAM_NAME_TEAM_COUNT, this.getTeamCount());
+        intent.putExtra(SplitResultActivity.PARAM_NAME_SELECTED_IDS, this.getSelectedIds());
         startActivity(intent);
     }
 
@@ -125,8 +125,8 @@ public class TeamSplitterActivity extends Activity {
     }
 
     public long[] getSelectedIds() {
-    	long [] res = view.getList().getCheckedItemIds();
-    	return res;
+        long [] res = view.getList().getCheckedItemIds();
+        return res;
     }
 
     public long[] getAllIds() {

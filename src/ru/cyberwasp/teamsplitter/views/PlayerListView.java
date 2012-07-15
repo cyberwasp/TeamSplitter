@@ -13,14 +13,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SelectPlayersView extends LinearLayout {
+public class PlayerListView extends LinearLayout {
 
     private TextView caption;
     private ListView list;
     private Button button;
     private Spinner numOfTeams;
 
-    public SelectPlayersView(Context context) {
+    public PlayerListView(Context context) {
         super(context);
         setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
