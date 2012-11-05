@@ -1,11 +1,12 @@
 package ru.cyberwasp.teamsplitter.views;
 
-import java.text.ChoiceFormat;
 import java.util.List;
 
 import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.R;
 import ru.cyberwasp.teamsplitter.adapters.PlayerListAdapter;
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -28,12 +29,15 @@ public class PlayerListView extends LinearLayout {
         LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         LinearLayout panel = new LinearLayout(context);
-        //setLayoutParams(lp);
         panel.setOrientation(HORIZONTAL);
+        panel.setBackgroundColor(getResources().getColor(R.color.toolbar_color));
+        panel.setGravity(Gravity.CENTER_VERTICAL);
+        panel.setPadding(4, 4, 4, 4);
         addView(panel);
 
         caption = new TextView(getContext());
         caption.setText("Number of teams: ");
+        caption.setTextColor(getResources().getColor(R.color.toolbar_text_color));
         panel.addView(caption, lp);
 
         numOfTeams = new Spinner(getContext());
@@ -47,10 +51,9 @@ public class PlayerListView extends LinearLayout {
         button.setText("Split");
         panel.addView(button, lp1);
 
-        caption = new TextView(context);
-        caption.setText("Select players:");
-        addView(caption, lp1);
         list = new ListView(context);
+        list.setBackgroundColor(getResources().getColor(R.color.background_color));
+        list.setCacheColorHint(DRAWING_CACHE_QUALITY_AUTO);
         list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         addView(list, lp1);
     }

@@ -1,5 +1,6 @@
 package ru.cyberwasp.teamsplitter.views;
 
+import ru.cyberwasp.teamsplitter.R;
 import ru.cyberwasp.teamsplitter.Team;
 import ru.cyberwasp.teamsplitter.adapters.TeamListAdapter;
 import android.content.Context;
@@ -18,9 +19,13 @@ public class TeamListView extends LinearLayout {
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         mainCaption = new TextView(context);
-        mainCaption.setText("Commands:");
+        mainCaption.setText("Teams:");
+        mainCaption.setBackgroundColor(getResources().getColor(R.color.toolbar_color));
+        mainCaption.setTextColor(getResources().getColor(R.color.toolbar_text_color));
         addView(mainCaption, lp);
         teams = new ExpandableListView(context);
+        teams.setBackgroundColor(getResources().getColor(R.color.background_color));
+        teams.setCacheColorHint(DRAWING_CACHE_QUALITY_AUTO);
         addView(teams, lp);
         teams.setGroupIndicator(null);
     }

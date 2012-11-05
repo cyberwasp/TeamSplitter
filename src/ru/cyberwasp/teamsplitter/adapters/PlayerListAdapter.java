@@ -3,6 +3,7 @@ package ru.cyberwasp.teamsplitter.adapters;
 import java.util.List;
 
 import ru.cyberwasp.teamsplitter.Player;
+import ru.cyberwasp.teamsplitter.R;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class PlayerListAdapter extends ArrayAdapter<Player> {
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView view = (TextView)super.getView(position, convertView, parent);
         view.setText(getItem(position).getInfo());
-        view.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
+        view.setTextAppearance(getContext(), R.style.MyTextAppearance);
         return view;
     }
 }

@@ -4,9 +4,12 @@ import ru.cyberwasp.teamsplitter.Team;
 import ru.cyberwasp.teamsplitter.views.PlayerView;
 import ru.cyberwasp.teamsplitter.views.TeamView;
 import android.content.Context;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
 
 public class TeamListAdapter extends BaseExpandableListAdapter {
 
@@ -19,6 +22,15 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
         this.teams = teams;
     }
 
+    private void setCommonTextViewAttrs(TextView view) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.listPreferredItemHeight, typedValue, true);
+        final int height = (int) typedValue.getDimension(context.getResources().getDisplayMetrics());
+        view.setHeight(height);
+        view.setGravity(Gravity.CENTER_VERTICAL);
+        view.setPadding(6, 0, 6, 0);
+    }
+    
     public Object getChild(int groupPosition, int childPosition) {
         return teams[groupPosition].getPlayerList().get(childPosition);
     }
@@ -30,6 +42,7 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
         PlayerView view = (convertView == null)?new PlayerView(context):(PlayerView) convertView; 
+        setCommonTextViewAttrs(view);
         view.setPlayer(teams[groupPosition].getPlayerList().get(childPosition));
         return view;
     }
@@ -53,6 +66,7 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
         TeamView view = (convertView == null)?new TeamView(context):(TeamView) convertView; 
+        view.setPadding(3, 0, 3, 0);
         view.setTeam(teams[groupPosition]);
         return view;
     }
