@@ -1,5 +1,6 @@
 package ru.cyberwasp.teamsplitter.adapters;
 
+import ru.cyberwasp.teamsplitter.Player;
 import ru.cyberwasp.teamsplitter.Team;
 import ru.cyberwasp.teamsplitter.views.PlayerView;
 import ru.cyberwasp.teamsplitter.views.TeamView;
@@ -32,23 +33,23 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
     }
     
     public Object getChild(int groupPosition, int childPosition) {
-        return teams[groupPosition].getPlayerList().get(childPosition);
+        return teams[groupPosition].getPlayers().get(childPosition);
     }
 
     public long getChildId(int groupPosition, int childPosition) {
-        return teams[groupPosition].getPlayerList().get(childPosition).getId();
+        return ((Player)getChild(groupPosition, childPosition)).getId();
     }
 
     public View getChildView(int groupPosition, int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
         PlayerView view = (convertView == null)?new PlayerView(context):(PlayerView) convertView; 
         setCommonTextViewAttrs(view);
-        view.setPlayer(teams[groupPosition].getPlayerList().get(childPosition));
+        view.setPlayer((Player)getChild(groupPosition, childPosition));
         return view;
     }
 
     public int getChildrenCount(int groupPosition) {
-        return teams[groupPosition].getPlayerList().size();
+        return teams[groupPosition].getPlayers().size();
     }
 
     public Object getGroup(int groupPosition) {

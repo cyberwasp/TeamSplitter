@@ -48,17 +48,15 @@ public class Team {
     }
 
     public void add(Player player) {
-        int idx = this.players.indexOf(player);
-        if (idx < 0) {
-            this.players.add(player);
+        if (!players.contains(player)) {
+            players.add(player);
             player.setTeam(this);
         }
     }
 
     public void remove(Player player) {
-        int idx = this.players.indexOf(player);
-        if (idx >= 0) {
-            this.players.remove(idx);
+        if (players.contains(player)) {
+            players.remove(player);
             player.setTeam(null);
         }
     }
@@ -68,11 +66,7 @@ public class Team {
         return new BubbleSearch().split(players, teamCount);
     }
 
-    public Player[] getPlayers() {
-        return players.toArray(new Player[0]);
-    }
-
-    public List<Player> getPlayerList() {
+    public List<Player> getPlayers() {
         return players;
     }
 

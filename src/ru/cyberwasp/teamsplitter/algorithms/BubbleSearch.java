@@ -72,9 +72,9 @@ public class BubbleSearch implements SplitAlgorithm {
     private boolean exchangeTwoPlayers(Team t1, Team t2) {
         double diff = Math.abs(t1.getMetric() - teamAvg);
         diff += Math.abs(t2.getMetric() - teamAvg);
-        for (Player p1 : t1.getPlayerList()) {
+        for (Player p1 : t1.getPlayers()) {
             double new_m1 = t1.getMetric() - p1.getMetric();
-            for (Player p2 : t2.getPlayerList()) {
+            for (Player p2 : t2.getPlayers()) {
                 double new_m2 = t2.getMetric() - p2.getMetric();
                 double new_diff = Math.abs((new_m1 + p2.getMetric()) - teamAvg);
                 new_diff += Math.abs((new_m2 + p1.getMetric()) - teamAvg);
@@ -87,9 +87,9 @@ public class BubbleSearch implements SplitAlgorithm {
             }
         }
 
-        for (Player p1 : t1.getPlayerList()) {
+        for (Player p1 : t1.getPlayers()) {
             double new_m1 = t1.getMetric() - p1.getMetric();
-            for (Player p2 : t2.getPlayerList()) {
+            for (Player p2 : t2.getPlayers()) {
                 double new_m2 = t2.getMetric() - p2.getMetric();
                 double new_diff = Math.abs((new_m1 + p2.getMetric()) - teamAvg);
                 new_diff += Math.abs((new_m2 + p1.getMetric()) - teamAvg);

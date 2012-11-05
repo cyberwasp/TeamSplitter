@@ -1,5 +1,6 @@
 package ru.cyberwasp.teamsplitter.views;
 
+import java.util.Collections;
 import java.util.List;
 
 import ru.cyberwasp.teamsplitter.Player;
@@ -59,6 +60,7 @@ public class PlayerListView extends LinearLayout {
     }
 
     public void setPlayers(List<Player> players) {
+    	Collections.sort(players, Player.comparatorByName);
         PlayerListAdapter adapter = new PlayerListAdapter(getContext(), android.R.layout.simple_list_item_multiple_choice, players);
         list.setAdapter(adapter);
     }

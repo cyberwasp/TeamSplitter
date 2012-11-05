@@ -1,6 +1,7 @@
 package ru.cyberwasp.teamsplitter;
 
 import java.text.DecimalFormat;
+import java.util.Comparator;
 
 public class Player {
 
@@ -9,6 +10,12 @@ public class Player {
     private String name;
     private long id;
     private Team team;
+
+    public static final Comparator<Player> comparatorByName = new Comparator<Player>(){
+        public int compare(Player o1, Player o2) {
+            return o1.getName().compareToIgnoreCase(o2.getName());
+        }
+    };
 
     public Player() {
         this(0);
