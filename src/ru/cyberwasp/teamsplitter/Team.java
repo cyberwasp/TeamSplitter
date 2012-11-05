@@ -95,7 +95,7 @@ public class Team {
     public String getInfo() {
         DecimalFormat fmt = new DecimalFormat("#.##");
         String metric = fmt.format(getMetric());
-        return "Team " + num + " (" + metric + ")";
+        return "Team " + num + " (" + metric + ") " + size() + " memeber(s)";
     }
 
     public long getID() {

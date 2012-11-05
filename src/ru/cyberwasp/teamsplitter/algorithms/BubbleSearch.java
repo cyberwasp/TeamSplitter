@@ -1,6 +1,7 @@
 package ru.cyberwasp.teamsplitter.algorithms;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import ru.cyberwasp.teamsplitter.Player;
@@ -18,6 +19,15 @@ public class BubbleSearch implements SplitAlgorithm {
         for (int i = 0; i < teamCount; i++) {
             teams[i] = new Team(i);
         }
+        
+        Random r = new Random();     
+        for (int i = 0; i < players.length; i++) {
+        	int x = r.nextInt(players.length);
+        	Player p = players[i];
+        	players[i] = players[x];
+        	players[x] = p;
+        }
+        
         for (int i = 0; i < players.length; i++) {
             players[i].setTeam(teams[i % teamCount]);
         }
