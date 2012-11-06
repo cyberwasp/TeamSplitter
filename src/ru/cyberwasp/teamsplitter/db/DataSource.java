@@ -1,5 +1,10 @@
 package ru.cyberwasp.teamsplitter.db;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import ru.cyberwasp.teamsplitter.Player;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,6 +26,11 @@ public class DataSource {
 
     public void close() {
         dbHelper.close();
+        db = null;
+    }
+    
+    public boolean isOpened() {
+    	return db != null;
     }
 
     private String getCondition(long ids[]) {
@@ -100,4 +110,29 @@ public class DataSource {
                         null
                 );
     }
+    
+    public void deleteAllPlayers() {
+    	Player[] players = getAllPlayers();
+    	for (Player player : players) 
+    		delete(player);
+    }
+
+	public void loadPlayersFromFile(File in) throws Exception {
+		Scanner input = new Scanner(in);
+		List<Player> players = new ArrayList<Player>();
+		while (input.hasNext()) {
+			String name = input.findInLine("(.*)\\t").trim();
+			if (name == null) 
+				throw new Exception("Incorrect file format");
+			double metric = input.nextDouble();
+			players.add(new Player(-1, name, metric));
+			input.nextLine();
+		}
+		boolean needOpenDB = ! isOpened();
+		if (needOpenDB) open();
+		deleteAllPlayers();
+		for (Player player : players) 
+			save(player);
+		if (needOpenDB) close();
+ 	}
 }

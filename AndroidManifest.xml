@@ -5,7 +5,8 @@
     android:versionName="1.0.alpha" >
 
     <uses-sdk android:minSdkVersion="10" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:theme="@style/Theme"
         android:icon="@drawable/ic_launcher"
@@ -21,6 +22,5 @@
         </activity>
         <activity android:name=".activities.SplitResultActivity"></activity>
         <activity android:name=".activities.PlayerEditorActivity"></activity>
-        </application>
-
+ 	</application>
 </manifest>

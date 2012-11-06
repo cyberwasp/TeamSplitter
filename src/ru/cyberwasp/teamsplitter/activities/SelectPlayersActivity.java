@@ -1,5 +1,6 @@
 package ru.cyberwasp.teamsplitter.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,10 +21,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SelectPlayersActivity extends Activity {
 
-    private PlayerListView view;
+    private static final int PICK_FILE_RESULT_CODE = 1;
+	private PlayerListView view;
     private DataSource datasource;
     private List<Player> players = new ArrayList<Player>();
 
@@ -71,7 +74,7 @@ public class SelectPlayersActivity extends Activity {
         switch (item.getItemId()) {
             case 0:
                 editPlayer(info.position);
-                break;
+            	break;
             case 1:
                 deletePlayer(info.position);
                 break;
@@ -83,6 +86,7 @@ public class SelectPlayersActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item = menu.add(0, 0, 0, "New player");
         item.setIcon(android.R.drawable.ic_menu_add);
+        item = menu.add(0, 1, 0, "Load");
         return true;
     }
 
@@ -92,11 +96,43 @@ public class SelectPlayersActivity extends Activity {
             case 0:
                 addPlayer();
                 break;
+            case 1:
+            	loadPlayersStart();
+            	break;
         }
         return true;
     }
 
-    private void getSplitResult() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch (requestCode) {
+            case PICK_FILE_RESULT_CODE: {
+                if (resultCode==RESULT_OK && data!=null && data.getData()!=null) {
+                    String fileName = data.getData().getPath();
+                    loadPlayersEnd(fileName);
+                }
+                break;
+            }
+        }
+    }
+   
+    private void loadPlayersEnd(String fileName){
+        File file = new File(fileName);
+        try {
+			datasource.loadPlayersFromFile(file);
+		} catch (Exception e) {
+			Toast t = Toast.makeText(this, "Error:" + e.getClass().getName() + " - " + e.getMessage() , Toast.LENGTH_SHORT);
+			t.show();
+			e.printStackTrace();
+		}
+    }
+    
+    private void loadPlayersStart() {
+        Intent theIntent = new Intent("org.openintents.action.PICK_FILE");
+        startActivityForResult(Intent.createChooser(theIntent, "Select file"), PICK_FILE_RESULT_CODE);
+	}
+
+	private void getSplitResult() {
         Intent intent = new Intent(this, SplitResultActivity.class);
         intent.putExtra(SplitResultActivity.PARAM_NAME_TEAM_COUNT, this.getTeamCount());
         intent.putExtra(SplitResultActivity.PARAM_NAME_SELECTED_IDS, this.getSelectedIds());
