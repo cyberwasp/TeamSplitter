@@ -198,10 +198,9 @@ public class SelectPlayersActivity extends Activity {
         }
         view.setPlayers(this.players);
         
-        int position = 0;
-        for (Player player : players) {
-            view.getList().setItemChecked(position, checkInfo.get(player));
-            position += 1;
+        for (int i = 0; i < view.getList().getAdapter().getCount(); i++) {
+        	Player player = (Player) view.getList().getAdapter().getItem(i);
+        	view.getList().setItemChecked(i, checkInfo.get(player));
         }
   
     }
