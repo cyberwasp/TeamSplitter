@@ -2,6 +2,7 @@ package ru.cyberwasp.teamsplitter.views;
 
 import ru.cyberwasp.teamsplitter.R;
 import android.content.Context;
+import android.text.InputType;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,14 +37,13 @@ public class PlayerEditorView extends LinearLayout {
         nameCaption.setText("Enter player name: ");
         addView(nameCaption, lp);
         nameEdit = new EditText(context);
-        //nameEdit.setBackgroundColor(getResources().getColor(R.color.background_color));
         addView(nameEdit, lp);
 
         metricCaption = new TextView(context);
         metricCaption.setText("Enter player metric: ");
         addView(metricCaption, lp);
         metricEdit = new EditText(context);
-        //metricEdit.setBackgroundColor(getResources().getColor(R.color.background_color));
+        metricEdit.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         addView(metricEdit, lp);
 
         okButton = new Button(context);

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class PlayerEditorActivity extends Activity {
 
@@ -54,15 +55,24 @@ public class PlayerEditorActivity extends Activity {
         return (extras != null) && extras.containsKey(PARAM_NAME_PLAYER_ID);
     }
 
-    private OnClickListener okClick = new OnClickListener() {
+    private final OnClickListener okClick = new OnClickListener() {
         public void onClick(View v) {
-            saveState();
-            setResult(RESULT_OK);
-            finish();
+
+            String cr = checkResult();
+
+            if (cr == "") {
+                saveState();
+                setResult(RESULT_OK);
+                finish();
+            } else {
+                Toast toast = Toast.makeText(v.getContext(), cr,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
     };
 
-    private OnClickListener cancelClick = new OnClickListener() {
+    private final OnClickListener cancelClick = new OnClickListener() {
         public void onClick(View v) {
             setResult(RESULT_CANCELED);
             finish();
@@ -74,10 +84,22 @@ public class PlayerEditorActivity extends Activity {
         view.getMetricEdit().setText(Double.toString(player.getMetric()));
     }
 
-    private void saveState() {
-        player.setName(view.getNameEdit().getText().toString());
-        player.setMetric(Double.valueOf(view.getMetricEdit().getText().toString()));
-        datasource.save(player);
+    protected String checkResult() {
+        String res = view.getNameEdit().getText().toString().trim().isEmpty() ? "Please, enter player name"
+                : "";
+        if (view.getMetricEdit().getText().toString().trim().isEmpty()) {
+            if (res.isEmpty()) {
+                res = "Please, enter player metric";
+            } else
+                res = res + " and metric";
+        }
+        return res;
     }
 
+    private void saveState() {
+        player.setName(view.getNameEdit().getText().toString());
+        player.setMetric(Double.valueOf(view.getMetricEdit().getText()
+                .toString()));
+        datasource.save(player);
+    }
 }
