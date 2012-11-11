@@ -87,6 +87,7 @@ public class SelectPlayersActivity extends Activity {
         MenuItem item = menu.add(0, 0, 0, "New player");
         item.setIcon(android.R.drawable.ic_menu_add);
         item = menu.add(0, 1, 0, "Load");
+        item.setIcon(android.R.drawable.ic_menu_upload);
         return true;
     }
 
