@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class SelectPlayersActivity extends Activity {
 
     private static final int PICK_FILE_RESULT_CODE = 1;
-	private PlayerListView view;
+    private PlayerListView view;
     private DataSource datasource;
     private List<Player> players = new ArrayList<Player>();
 
@@ -60,7 +60,8 @@ public class SelectPlayersActivity extends Activity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
         if (v == view.getList()) {
             menu.setHeaderTitle("Operations");
             menu.add(Menu.NONE, 0, 0, "Edit");
@@ -70,14 +71,15 @@ public class SelectPlayersActivity extends Activity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+                .getMenuInfo();
         switch (item.getItemId()) {
-            case 0:
-                editPlayer(info.position);
-            	break;
-            case 1:
-                deletePlayer(info.position);
-                break;
+        case 0:
+            editPlayer(info.position);
+            break;
+        case 1:
+            deletePlayer(info.position);
+            break;
         }
         return true;
     }
@@ -94,56 +96,62 @@ public class SelectPlayersActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case 0:
-                addPlayer();
-                break;
-            case 1:
-            	loadPlayersStart();
-            	break;
+        case 0:
+            addPlayer();
+            break;
+        case 1:
+            loadPlayersStart();
+            break;
         }
         return true;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case PICK_FILE_RESULT_CODE: {
-                if (resultCode==RESULT_OK && data!=null && data.getData()!=null) {
-                    String fileName = data.getData().getPath();
-                    loadPlayersEnd(fileName);
-                }
-                break;
+        case PICK_FILE_RESULT_CODE: {
+            if (resultCode == RESULT_OK && data != null
+                    && data.getData() != null) {
+                String fileName = data.getData().getPath();
+                loadPlayersEnd(fileName);
             }
+            break;
+        }
         }
     }
-   
-    private void loadPlayersEnd(String fileName){
+
+    private void loadPlayersEnd(String fileName) {
         File file = new File(fileName);
         try {
-			datasource.loadPlayersFromFile(file);
-		} catch (Exception e) {
-			Toast t = Toast.makeText(this, "Error:" + e.getClass().getName() + " - " + e.getMessage() , Toast.LENGTH_SHORT);
-			t.show();
-			e.printStackTrace();
-		}
+            datasource.loadPlayersFromFile(file);
+        } catch (Exception e) {
+            Toast t = Toast.makeText(this, "Error:" + e.getClass().getName()
+                    + " - " + e.getMessage(), Toast.LENGTH_SHORT);
+            t.show();
+            e.printStackTrace();
+        }
     }
-    
+
     private void loadPlayersStart() {
         Intent theIntent = new Intent("org.openintents.action.PICK_FILE");
-        startActivityForResult(Intent.createChooser(theIntent, "Select file"), PICK_FILE_RESULT_CODE);
-	}
+        startActivityForResult(Intent.createChooser(theIntent, "Select file"),
+                PICK_FILE_RESULT_CODE);
+    }
 
-	private void getSplitResult() {
+    private void getSplitResult() {
         Intent intent = new Intent(this, SplitResultActivity.class);
-        intent.putExtra(SplitResultActivity.PARAM_NAME_TEAM_COUNT, this.getTeamCount());
-        intent.putExtra(SplitResultActivity.PARAM_NAME_SELECTED_IDS, this.getSelectedIds());
+        intent.putExtra(SplitResultActivity.PARAM_NAME_TEAM_COUNT,
+                this.getTeamCount());
+        intent.putExtra(SplitResultActivity.PARAM_NAME_SELECTED_IDS,
+                this.getSelectedIds());
         startActivity(intent);
     }
 
     private void editPlayer(int position) {
         Player player = getPlayerByPosition(position);
         Intent intent = new Intent(this, PlayerEditorActivity.class);
-        intent.putExtra(PlayerEditorActivity.PARAM_NAME_PLAYER_ID, player.getId());
+        intent.putExtra(PlayerEditorActivity.PARAM_NAME_PLAYER_ID,
+                player.getId());
         startActivity(intent);
     }
 
@@ -162,7 +170,7 @@ public class SelectPlayersActivity extends Activity {
     }
 
     public long[] getSelectedIds() {
-        long [] res = view.getList().getCheckedItemIds();
+        long[] res = view.getList().getCheckedItemIds();
         return res;
     }
 
@@ -192,17 +200,18 @@ public class SelectPlayersActivity extends Activity {
         this.players.clear();
         Map<Player, Boolean> checkInfo = new HashMap<Player, Boolean>();
         for (Player player : players) {
-            boolean selected = (Arrays.binarySearch(selectedIDs, player.getId()) >= 0) ||
-                    (Arrays.binarySearch(allIDs, player.getId()) < 0);
+            boolean selected = (Arrays
+                    .binarySearch(selectedIDs, player.getId()) >= 0)
+                    || (Arrays.binarySearch(allIDs, player.getId()) < 0);
             this.players.add(player);
             checkInfo.put(player, selected);
         }
         view.setPlayers(this.players);
-        
+
         for (int i = 0; i < view.getList().getAdapter().getCount(); i++) {
-        	Player player = (Player) view.getList().getAdapter().getItem(i);
-        	view.getList().setItemChecked(i, checkInfo.get(player));
+            Player player = (Player) view.getList().getAdapter().getItem(i);
+            view.getList().setItemChecked(i, checkInfo.get(player));
         }
-  
+
     }
 }

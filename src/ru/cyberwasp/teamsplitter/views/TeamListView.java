@@ -17,14 +17,17 @@ public class TeamListView extends LinearLayout {
 
     private ExpandableListView teams;
     private TextView caption;
-	private Button button;
- 
+    private Button button;
+
     public TeamListView(Context context) {
         super(context);
         setOrientation(VERTICAL);
-        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
+        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
 
         LinearLayout panel = new LinearLayout(context);
         panel.setOrientation(HORIZONTAL);
@@ -32,11 +35,13 @@ public class TeamListView extends LinearLayout {
         panel.setGravity(Gravity.CENTER_VERTICAL);
         panel.setPadding(4, 4, 4, 4);
         addView(panel);
-        
+
         caption = new TextView(context);
         caption.setText("Teams:  ");
-        caption.setBackgroundColor(getResources().getColor(R.color.toolbar_color));
-        caption.setTextColor(getResources().getColor(R.color.toolbar_text_color));
+        caption.setBackgroundColor(getResources().getColor(
+                R.color.toolbar_color));
+        caption.setTextColor(getResources()
+                .getColor(R.color.toolbar_text_color));
         panel.addView(caption, lp);
 
         button = new Button(context);
@@ -44,20 +49,21 @@ public class TeamListView extends LinearLayout {
         panel.addView(button, lp1);
 
         teams = new ExpandableListView(context);
-        teams.setBackgroundColor(getResources().getColor(R.color.background_color));
+        teams.setBackgroundColor(getResources().getColor(
+                R.color.background_color));
         teams.setCacheColorHint(DRAWING_CACHE_QUALITY_AUTO);
         addView(teams, lp1);
         teams.setGroupIndicator(null);
     }
 
     public Button getTryResplitButton() {
-		return button;
-	}
+        return button;
+    }
 
-	public void setTeams(Team[] teams) {
+    public void setTeams(Team[] teams) {
         this.teams.setAdapter(new TeamListAdapter(getContext(), teams));
         for (int i = 0; i < teams.length; i++) {
-        	Collections.sort(teams[i].getPlayers(), Player.comparatorByName);
+            Collections.sort(teams[i].getPlayers(), Player.comparatorByName);
             this.teams.expandGroup(i);
         }
     }

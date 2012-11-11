@@ -7,7 +7,8 @@ import ru.cyberwasp.teamsplitter.Team;
 
 public class ExchaustiveSearch implements SplitAlgorithm {
 
-    public double[] calcMetric(Player players[], int[] playersInTeams, int teamCount) {
+    public double[] calcMetric(Player players[], int[] playersInTeams,
+            int teamCount) {
         double[] res = new double[teamCount];
         for (int i = 0; i < players.length; i++) {
             res[playersInTeams[i]] += players[i].getMetric();

@@ -21,9 +21,11 @@ public class PlayerEditorView extends LinearLayout {
     public PlayerEditorView(Context context) {
         super(context);
         setOrientation(VERTICAL);
-        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
         setBackgroundColor(getResources().getColor(R.color.background_color));
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
 
         LinearLayout panel = new LinearLayout(context);
         panel.setOrientation(HORIZONTAL);
@@ -32,7 +34,6 @@ public class PlayerEditorView extends LinearLayout {
         panel.setPadding(4, 4, 4, 4);
         addView(panel);
 
-        
         nameCaption = new TextView(context);
         nameCaption.setText("Enter player name: ");
         addView(nameCaption, lp);
@@ -43,16 +44,19 @@ public class PlayerEditorView extends LinearLayout {
         metricCaption.setText("Enter player metric: ");
         addView(metricCaption, lp);
         metricEdit = new EditText(context);
-        metricEdit.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        metricEdit.setInputType(InputType.TYPE_CLASS_NUMBER
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         addView(metricEdit, lp);
 
         okButton = new Button(context);
         okButton.setText("Ok");
-        panel.addView(getOkButton(), new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
+        panel.addView(getOkButton(), new LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
 
         cancelButton = new Button(context);
         cancelButton.setText("Cancel");
-        panel.addView(cancelButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
+        panel.addView(cancelButton, new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT, 1));
 
     }
 

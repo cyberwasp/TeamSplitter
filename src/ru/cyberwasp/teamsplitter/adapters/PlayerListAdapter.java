@@ -12,24 +12,24 @@ import android.widget.TextView;
 
 public class PlayerListAdapter extends ArrayAdapter<Player> {
 
-    public PlayerListAdapter(Context context, int textViewResourceId, List<Player> players) {
+    public PlayerListAdapter(Context context, int textViewResourceId,
+            List<Player> players) {
         super(context, textViewResourceId, players);
     }
-    
+
     @Override
-    public boolean hasStableIds()
-    {
+    public boolean hasStableIds() {
         return true;
     }
 
     @Override
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return getItem(position).getId();
     }
-    
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView view = (TextView)super.getView(position, convertView, parent);
+        TextView view = (TextView) super.getView(position, convertView, parent);
         view.setText(getItem(position).getInfo());
         view.setTextAppearance(getContext(), R.style.MyTextAppearance);
         return view;

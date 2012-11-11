@@ -19,7 +19,8 @@ public class DBHelper extends SQLiteOpenHelper {
             public static String METRIC = "METRIC";
         }
 
-        public static String[] ALL_COLUMNS = {Columns._ID, Columns.NAME, Columns.METRIC};
+        public static String[] ALL_COLUMNS = { Columns._ID, Columns.NAME,
+                Columns.METRIC };
     }
 
     private static final String DATABASE_NAME = "players.db";
@@ -34,8 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + DBHelper.PlayersTable.NAME + " ("
                 + DBHelper.PlayersTable.Columns._ID + " INTEGER PRIMARY KEY,"
                 + DBHelper.PlayersTable.Columns.NAME + " TEXT,"
-                + DBHelper.PlayersTable.Columns.METRIC + " DOUBLE "
-                + ");");
+                + DBHelper.PlayersTable.Columns.METRIC + " DOUBLE " + ");");
 
         db.execSQL("Insert into players (_id, name, metric) values (0, \"player one\", 10)");
         db.execSQL("Insert into players (_id, name, metric) values (1, \"player two\", 20)");
@@ -47,7 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO: upgrade database without lost data?
+        // TODO: upgrade database without lost data?
         Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                 + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + DBHelper.PlayersTable.NAME);

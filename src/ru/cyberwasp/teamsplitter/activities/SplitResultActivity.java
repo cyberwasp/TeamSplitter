@@ -22,9 +22,10 @@ public class SplitResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         view = new TeamListView(this);
         view.getTryResplitButton().setOnClickListener(new OnClickListener() {
-            	public void onClick(View v) {view.setTeams(splitSelectedPlayers());}
+            public void onClick(View v) {
+                view.setTeams(splitSelectedPlayers());
             }
-        );
+        });
         datasource = new DataSource(this);
         datasource.open();
         view.setTeams(splitSelectedPlayers());
@@ -53,7 +54,7 @@ public class SplitResultActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         return extras.getInt(PARAM_NAME_TEAM_COUNT);
     }
-    
+
     private Player[] getSelectedPlayers() {
         Bundle extras = getIntent().getExtras();
         long ids[] = extras.getLongArray(PARAM_NAME_SELECTED_IDS);

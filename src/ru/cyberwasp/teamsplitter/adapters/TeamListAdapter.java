@@ -17,7 +17,7 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
     private Team[] teams;
     private final Context context;
 
-    public TeamListAdapter(Context context,  Team[] teams) {
+    public TeamListAdapter(Context context, Team[] teams) {
         super();
         this.context = context;
         this.teams = teams;
@@ -25,26 +25,29 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
 
     private void setCommonTextViewAttrs(TextView view) {
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(android.R.attr.listPreferredItemHeight, typedValue, true);
-        final int height = (int) typedValue.getDimension(context.getResources().getDisplayMetrics());
+        context.getTheme().resolveAttribute(
+                android.R.attr.listPreferredItemHeight, typedValue, true);
+        final int height = (int) typedValue.getDimension(context.getResources()
+                .getDisplayMetrics());
         view.setHeight(height);
         view.setGravity(Gravity.CENTER_VERTICAL);
         view.setPadding(6, 0, 6, 0);
     }
-    
+
     public Object getChild(int groupPosition, int childPosition) {
         return teams[groupPosition].getPlayers().get(childPosition);
     }
 
     public long getChildId(int groupPosition, int childPosition) {
-        return ((Player)getChild(groupPosition, childPosition)).getId();
+        return ((Player) getChild(groupPosition, childPosition)).getId();
     }
 
     public View getChildView(int groupPosition, int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
-        PlayerView view = (convertView == null)?new PlayerView(context):(PlayerView) convertView; 
+        PlayerView view = (convertView == null) ? new PlayerView(context)
+                : (PlayerView) convertView;
         setCommonTextViewAttrs(view);
-        view.setPlayer((Player)getChild(groupPosition, childPosition));
+        view.setPlayer((Player) getChild(groupPosition, childPosition));
         return view;
     }
 
@@ -66,7 +69,8 @@ public class TeamListAdapter extends BaseExpandableListAdapter {
 
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
-        TeamView view = (convertView == null)?new TeamView(context):(TeamView) convertView; 
+        TeamView view = (convertView == null) ? new TeamView(context)
+                : (TeamView) convertView;
         view.setPadding(3, 0, 3, 0);
         view.setTeam(teams[groupPosition]);
         return view;

@@ -25,9 +25,12 @@ public class PlayerListView extends LinearLayout {
     public PlayerListView(Context context) {
         super(context);
         setOrientation(VERTICAL);
-        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
+        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
 
         LinearLayout panel = new LinearLayout(context);
         panel.setOrientation(HORIZONTAL);
@@ -38,12 +41,14 @@ public class PlayerListView extends LinearLayout {
 
         caption = new TextView(getContext());
         caption.setText("Number of teams: ");
-        caption.setTextColor(getResources().getColor(R.color.toolbar_text_color));
+        caption.setTextColor(getResources()
+                .getColor(R.color.toolbar_text_color));
         panel.addView(caption, lp);
 
         numOfTeams = new Spinner(getContext());
-        String numbers[] = {"2", "3", "4", "5"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, numbers);
+        String numbers[] = { "2", "3", "4", "5" };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, numbers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         numOfTeams.setAdapter(adapter);
         panel.addView(numOfTeams, lp);
@@ -53,15 +58,17 @@ public class PlayerListView extends LinearLayout {
         panel.addView(button, lp1);
 
         list = new ListView(context);
-        list.setBackgroundColor(getResources().getColor(R.color.background_color));
+        list.setBackgroundColor(getResources().getColor(
+                R.color.background_color));
         list.setCacheColorHint(DRAWING_CACHE_QUALITY_AUTO);
         list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         addView(list, lp1);
     }
 
     public void setPlayers(List<Player> players) {
-    	Collections.sort(players, Player.comparatorByName);
-        PlayerListAdapter adapter = new PlayerListAdapter(getContext(), android.R.layout.simple_list_item_multiple_choice, players);
+        Collections.sort(players, Player.comparatorByName);
+        PlayerListAdapter adapter = new PlayerListAdapter(getContext(),
+                android.R.layout.simple_list_item_multiple_choice, players);
         list.setAdapter(adapter);
     }
 

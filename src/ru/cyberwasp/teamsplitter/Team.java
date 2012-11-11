@@ -62,7 +62,7 @@ public class Team {
     }
 
     public static Team[] split(Player players[], int teamCount) {
-        //return new ExchaustiveSearch().split(players, teamCount);
+        // return new ExchaustiveSearch().split(players, teamCount);
         return new BubbleSearch().split(players, teamCount);
     }
 
